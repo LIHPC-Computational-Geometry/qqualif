@@ -1,0 +1,10 @@
+include(CMakeFindDependencyMacro)
+find_dependency (QtQualif)
+find_dependency (GQLima)
+find_dependency (GQGMDS)
+find_dependency (GQVtk)
+
+@PACKAGE_INIT@
+
+set (QQUALIF_VERSION @QQUALIF_VERSION@)
+set_and_check (QtCalQual_RUNTIME_DIR   "@PACKAGE_RUNTIME_INSTALL_DIR@")

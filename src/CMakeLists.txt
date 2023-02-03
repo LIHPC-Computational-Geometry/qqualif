@@ -1,0 +1,20 @@
+add_subdirectory (GQualif)
+if (BUILD_GQLima)
+	add_subdirectory (GQLima)
+endif (BUILD_GQLima)
+if (BUILD_GQGMDS)
+	add_subdirectory (GQGMDS)
+endif (BUILD_GQGMDS)
+if (BUILD_GQVtk)
+	add_subdirectory (GQVtk)
+endif (BUILD_GQVtk)
+add_subdirectory (QtQualif)
+
+# those two components currently only compile when either vtk, lima or
+# both are activated
+if (BUILD_GQLima)
+  if (BUILD_GQVtk)
+    add_subdirectory (QCalQual)
+  endif (BUILD_GQVtk)
+  add_subdirectory (tests)
+endif (BUILD_GQLima)
