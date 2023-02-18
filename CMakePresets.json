@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "configurePresets": [
+      {
+        "name": "ci",
+        "cacheVariables": {
+          "BUILD_GQGMDS": "ON",
+          "CMAKE_INSTALL_PREFIX": "$env{INSTALL_DIR}/tkutil;$env{INSTALL_DIR}/lima;$env{INSTALL_DIR}/qualif;$env{INSTALL_DIR}/qwtcharts;$env{INSTALL_DIR}/qtutil;$env{INSTALL_DIR}/gmds072"
+        }
+      }
+    ]
+}
