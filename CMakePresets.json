@@ -5,7 +5,12 @@
         "name": "ci",
         "cacheVariables": {
           "BUILD_GQGMDS": "ON",
-          "CMAKE_PREFIX_PATH": "$env{INSTALL_DIR}/tkutil;$env{INSTALL_DIR}/lima;$env{INSTALL_DIR}/qualif;$env{INSTALL_DIR}/qwtcharts;$env{INSTALL_DIR}/qtutil;$env{INSTALL_DIR}/gmds072"
+          "TkUtil_ROOT": "$env{INSTALL_DIR}/tkutil",
+          "Lima_ROOT": "$env{INSTALL_DIR}/lima",
+          "Qualif_ROOT": "$env{INSTALL_DIR}/qualif",
+          "QwtCharts_ROOT": "$env{INSTALL_DIR}/qwtcharts",
+          "QtUtil_ROOT": "$env{INSTALL_DIR}/qtutil",
+          "Gmds_ROOT": "$env{INSTALL_DIR}/gmds072"
         }
       }
     ]
