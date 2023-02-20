@@ -7,7 +7,7 @@
           "BUILD_GQGMDS": "ON",
           "TkUtil_ROOT": "$env{INSTALL_DIR}/tkutil",
           "Lima_ROOT": "$env{INSTALL_DIR}/lima",
-          "Qualif_ROOT": "$env{INSTALL_DIR}/qualif",
+          "qualifinternal_ROOT": "$env{INSTALL_DIR}/qualif",
           "QwtCharts_ROOT": "$env{INSTALL_DIR}/qwtcharts",
           "QtUtil_ROOT": "$env{INSTALL_DIR}/qtutil",
           "gmds_ROOT": "$env{INSTALL_DIR}/gmds072"
