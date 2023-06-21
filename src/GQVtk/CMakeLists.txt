@@ -1,9 +1,12 @@
 set (CURRENT_PACKAGE_NAME "GQVtk")
 set (CURRENT_PACKAGE_MACRO_NAME "GQVTK")
 
+find_package (GUIToolkitsVariables)
+
 include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/common.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/workarounds.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/common_vtk.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
 
 #find_package (VtkContrib REQUIRED)	# Uniquement pour la dépendance à VTK, à remplacer par la suite
 if (VTK_7)
@@ -23,7 +26,9 @@ elseif (VTK_9)
 	find_package (VTK 9 REQUIRED COMPONENTS ${VTK_REQUIRED_PACKAGES})
 	set (VTK_LIB_DEPENDENCIES ${VTK_LIBRARIES})
 	set (VTK_INC_DEPENDENCIES )	# Empty, not usefull with VTK 8
-endif (VTK_8)
+else ( )
+	message (FATAL_ERROR "Version de VTK non supportée.")
+endif ( )
 
 file (GLOB HEADERS public/${CURRENT_PACKAGE_NAME}/*.h)
 file (GLOB CPP_SOURCES *.cpp)

@@ -1,13 +1,16 @@
 set (CURRENT_PACKAGE_NAME "GQualif")
 set (CURRENT_PACKAGE_MACRO_NAME "GQUALIF")
 
-include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/common.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/workarounds.cmake)
+find_package (GUIToolkitsVariables)
 
-find_package (TkUtil 5 REQUIRED)
-find_package (Lima REQUIRED)
-#include (${Lima_LIB_DIR}/Lima/cmake/FindHdf145.cmake)
+include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
+
+find_package (TkUtil 6 REQUIRED)
+if (BUILD_GQLima)
+	find_package (Lima REQUIRED)
+endif (BUILD_GQLima)
 find_package (qualifinternal REQUIRED)
 
 file (GLOB HEADERS public/${CURRENT_PACKAGE_NAME}/*.h)
@@ -19,7 +22,7 @@ add_library (GQualif ${CPP_SOURCES} ${HEADERS})
 set (ALL_TARGETS GQualif)
 set_property (TARGET GQualif PROPERTY VERSION ${GQUALIF_VERSION})
 set_property (TARGET GQualif PROPERTY SOVERSION ${GQUALIF_MAJOR_VERSION})
-set (GQUALIF_PRIVATE_FLAGS -DGQUALIF_VERSION="${GQUALIF_VERSION}")
+set (GQUALIF_PRIVATE_FLAGS -DGQUALIF_VERSION="${GQUALIF_VERSION}" -DQQUALIF_VERSION="${QQUALIF_VERSION}")
 
 target_include_directories (GQualif PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
 target_compile_definitions (GQualif PUBLIC ${GQUALIF_PUBLIC_FLAGS})

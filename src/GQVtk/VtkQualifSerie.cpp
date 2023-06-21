@@ -1,4 +1,5 @@
 #include <vtkConfigure.h>	// VTK_MAJOR_VERSION ...
+
 #include "GQVtk/VtkQualifSerie.h"
 #include "GQualif/QualifHelper.h"
 
