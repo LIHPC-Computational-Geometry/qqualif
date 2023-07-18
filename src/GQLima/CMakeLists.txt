@@ -1,13 +1,13 @@
 set (CURRENT_PACKAGE_NAME "GQLima")
 set (CURRENT_PACKAGE_MACRO_NAME "GQLIMA")
 
+find_package (GUIToolkitsVariables)
+
 include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/common.cmake)
-include (${CMAKE_SOURCE_DIR}/cmake/workarounds.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
 
 find_package (Lima REQUIRED)
-# 02/23 - BL: lima is built without Hdf145
-# include (${Lima_LIB_DIR}/Lima/cmake/FindHdf145.cmake)
 
 file (GLOB HEADERS public/${CURRENT_PACKAGE_NAME}/*.h)
 file (GLOB CPP_SOURCES *.cpp)
