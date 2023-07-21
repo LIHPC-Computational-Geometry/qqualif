@@ -5,6 +5,7 @@
         "name": "ci",
         "cacheVariables": {
           "BUILD_GQGMDS": "ON",
+          "GUIToolkitsVariables_ROOT": "$env{INSTALL_DIR}/guitoolkitsvariables",
           "TkUtil_ROOT": "$env{INSTALL_DIR}/tkutil",
           "Lima_ROOT": "$env{INSTALL_DIR}/lima",
           "qualifinternal_ROOT": "$env{INSTALL_DIR}/qualif",
