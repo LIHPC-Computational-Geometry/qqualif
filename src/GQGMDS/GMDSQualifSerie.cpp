@@ -21,7 +21,7 @@ static const Charset	charset ("àéèùô");
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-		gmds::IGMesh& mesh, bool destroy,
+		gmds::Mesh& mesh, bool destroy,
 		unsigned char dimension,
 		const std::string& name, const std::string& fileName)
 : AbstractQualifSerieAdapter (fileName, name, dimension),
@@ -42,13 +42,13 @@ GMDSQualifSerie::GMDSQualifSerie (
 	{
 		case	2	:
 			if (0 != name.size ( ))
-				_surface	= &mesh.getSurface (name);
+				_surface	= mesh.getGroup<Face> (name);
 			else
 				mesh.getAll<Face> (_faces);
 			break;
 		case	3	:
 			if (0 != name.size ( ))
-				_volume		= &mesh.getVolume (name);
+				_volume		= mesh.getGroup<Region> (name);
 			else
 				mesh.getAll<Region> (_regions);
 			break;
@@ -97,7 +97,7 @@ GMDSQualifSerie::GMDSQualifSerie (
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-	IGMesh::surface& s, const std::string& name,
+	gmds::CellGroup<gmds::Face>& s, const std::string& name,
 	const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 2),
 	  _mesh (0), _destroy (false), _surface (&s), _volume (0),
@@ -107,7 +107,7 @@ GMDSQualifSerie::GMDSQualifSerie (
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-	IGMesh::volume& v, const std::string& name, const std::string& fileName)
+	gmds::CellGroup<gmds::Region>& v, const std::string& name, const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 3),
 	  _mesh (0), _destroy (false), _surface (0), _volume (&v),
 	  _faces ( ), _regions ( )
@@ -194,7 +194,7 @@ Qualif::Maille& GMDSQualifSerie::getCell (size_t i) const
 				gmds::Face	face	= getGMDSFace (i);
 				face.getAll<Node>(nodes);
 
-				switch (face.getType ( ))
+				switch (face.type())
 				{
 					case gmds::GMDS_TRIANGLE	:
 						for (s = 0; s < 3; s++)
@@ -217,11 +217,11 @@ Qualif::Maille& GMDSQualifSerie::getCell (size_t i) const
 					{
 						TkUtil::UTF8String	error (charset);
 						error << "Type de maille GMDS invalide ("
-						      << (unsigned long)face.getType ( ) << " pour la "
+						      << (unsigned long)face.type() << " pour la "
 						      << i << "-ème maille de type polygone.";
 						throw TkUtil::Exception (error);
 					}	// default
-				}	// switch (face.getType ( ))
+				}	// switch (face.type())
 			}	// case 2
 			break;
 			case 3	:
@@ -240,7 +240,7 @@ Qualif::Maille& GMDSQualifSerie::getCell (size_t i) const
 				gmds::Region	cell	= getGMDSRegion (i);
 				cell.getAll<Node>(nodes);
 
-				switch (cell.getType ( ))
+				switch (cell.type())
 				{
 					case gmds::GMDS_TETRA	:
 						for (s = 0; s < 4; s++)
@@ -282,7 +282,7 @@ Qualif::Maille& GMDSQualifSerie::getCell (size_t i) const
 					{
 						TkUtil::UTF8String	error (charset);
 						error << "Type de maille GMDS invalide ("
-						      << (unsigned long)cell.getType ( ) << " pour la "
+						      << (unsigned long)cell.type() << " pour la "
 						      << i << "-ème maille de type polyèdre.";
 						throw TkUtil::Exception (error);
 					}	// default
@@ -349,8 +349,7 @@ Face GMDSQualifSerie::getGMDSFace (size_t i) const
 		throw exc;
 	}	// if ((0 == _surface) && (0 == _mesh))
 
-	gmds::Face	face	= 0 == _surface ? _faces [i] : (*_surface) [i];
-
+	gmds::Face face	= 0 == _surface ? _faces[i] : _mesh->get<gmds::Face>((*_surface) [i]);
 	return face;
 }	//  GMDSQualifSerie::getGMDSFace
 
@@ -364,7 +363,7 @@ Region GMDSQualifSerie::getGMDSRegion (size_t i) const
 		throw exc;
 	}	// if ((0 == _volume) && (0 == _mesh))
 
-	gmds::Region region	= 0 == _volume ? _regions [i] : (*_volume) [i];
+	gmds::Region region	= 0 == _volume ? _regions [i] : _mesh->get<Region>((*_volume) [i]);
 	return region;
 }	//  GMDSQualifSerie::getGMDSRegion
 
@@ -393,11 +392,9 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 								" GMDSQualifSerie::getCellType")
 					throw exc;
 				}	// if ((0 == _surface) && (0 == _mesh))
-				gmds::Face	face	=
-					0 == _surface ? _faces [i] : (*_surface) [i];
+				gmds::Face	face = 0 == _surface ? _faces [i] : _mesh->get<Face>((*_surface) [i]);
 
-
-				switch (face.getType ( ))
+				switch (face.type())
 				{
 					case gmds::GMDS_TRIANGLE	: return QualifHelper::TRIANGLE;
 					case gmds::GMDS_QUAD		: return QualifHelper::QUADRANGLE;
@@ -405,7 +402,7 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 					{
 						TkUtil::UTF8String	error (charset);
 						error << "Type de maille GMDS invalide ("
-						      << (unsigned long)face.getType ( ) << " pour la "
+						      << (unsigned long)face.type() << " pour la "
 						      << i << "-ème maille de type polygone.";
 						throw TkUtil::Exception (error);
 					}	// default
@@ -421,10 +418,9 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 					throw exc;
 				}	// if ((0 == _volume) && (0 == _mesh))
 
-				gmds::Region	cell	=
-					0 == _volume ? _regions [i] : (*_volume) [i];
+				gmds::Region cell =  0 == _volume ? _regions [i] : _mesh->get<Region>((*_volume) [i]);
 
-				switch (cell.getType ( ))
+				switch (cell.type())
 				{
 					case gmds::GMDS_TETRA	: return QualifHelper::TETRAEDRON;
 					case gmds::GMDS_PYRAMID	: return QualifHelper::PYRAMID;
@@ -434,7 +430,7 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 					{
 						TkUtil::UTF8String	error (charset);
 						error << "Type de maille GMDS invalide ("
-						      << (unsigned long)cell.getType ( ) << " pour la "
+						      << (unsigned long)cell.type() << " pour la "
 						      << i << "-ème maille de type polyèdre.";
 						throw TkUtil::Exception (error);
 					}	// default

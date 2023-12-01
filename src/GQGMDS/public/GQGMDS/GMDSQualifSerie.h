@@ -3,7 +3,7 @@
 
 #include "GQualif/AbstractQualifSerieAdapter.h"
 
-#include <GMDS/IG/IGMesh.h>
+#include <gmds/ig/Mesh.h>
 
 #include <vector>
 
@@ -40,7 +40,7 @@ public :
 	 * @param		Eventuel nom du fichier d'où est chargée la série.
 	 */
 	GMDSQualifSerie (
-			gmds::IGMesh& mesh, bool destroy,
+			gmds::Mesh& mesh, bool destroy,
 			unsigned char dimension,
 			const std::string& name, const std::string& fileName);
 
@@ -53,7 +53,7 @@ public :
 	 * @param		Nom du fichier d'où est éventuellement issue la surface.
 	 */
 	GMDSQualifSerie (
-			gmds::IGMesh::surface&, const std::string& name,
+			gmds::CellGroup<gmds::Face>& surface, const std::string& name,
 			const std::string& fileName);
 
 	/**
@@ -65,7 +65,7 @@ public :
 	 * @param		Nom du fichier d'où est éventuellement issue le volume.
 	 */
 	GMDSQualifSerie (
-			gmds::IGMesh::volume&, const std::string& name,
+			gmds::CellGroup<gmds::Region>& volume, const std::string& name,
 			const std::string& fileName);
 
 	/**
@@ -137,22 +137,22 @@ private :
 	GMDSQualifSerie& operator = (const GMDSQualifSerie&);
 
 	/** L'éventuel maillage associé. */
-	gmds::IGMesh*					_mesh;
+	gmds::Mesh*					_mesh;
 
-	/** Faut-il détruire ce maillageà la fin ? */
-	bool										_destroy;
+	/** Faut-il détruire ce maillage à la fin ? */
+	bool								_destroy;
 
 	/** L'éventuelle surface représentée. */
-	gmds::IGMesh::surface*		_surface;
+	gmds::CellGroup<gmds::Face>*		_surface;
 
 	/** L'éventuel volume représenté. */
-	gmds::IGMesh::volume*			_volume;
+	gmds::CellGroup<gmds::Region>*		_volume;
 
 	/** Pour les maillages sans groupes de mailles (surfaces ou volumes) :
 	 * avoir la liste (non trouée) des mailles analysées (polygones/polyèdres).
 	 */
-	std::vector<gmds::Face>					_faces;
-	std::vector<gmds::Region>					_regions;
+	std::vector<gmds::Face>				_faces;
+	std::vector<gmds::Region>			_regions;
 };	// class GMDSQualifSerie
 
 }	// namespace GQualif
