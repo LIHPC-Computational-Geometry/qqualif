@@ -18,6 +18,8 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
+#include <qwt_text.h>
+
 #include <assert.h>
 #include <iostream>
 #include <memory>
