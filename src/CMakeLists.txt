@@ -10,8 +10,7 @@ if (BUILD_GQVtk)
 endif (BUILD_GQVtk)
 add_subdirectory (QtQualif)
 
-# those two components currently only compile when either vtk, lima or
-# both are activated
+# those two components currently only compile when either vtk, lima or both are activated
 if (BUILD_GQLima)
   if (BUILD_GQVtk)
     add_subdirectory (QCalQual)
