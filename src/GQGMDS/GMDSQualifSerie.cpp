@@ -25,8 +25,7 @@ GMDSQualifSerie::GMDSQualifSerie (
 		unsigned char dimension,
 		const std::string& name, const std::string& fileName)
 : AbstractQualifSerieAdapter (fileName, name, dimension),
-  _mesh (&mesh), _destroy (destroy), _surface (0), _volume (0),
-  _faces ( ), _regions ( )
+  _mesh (&mesh), _destroy (destroy), _faces (), _regions ()
 {
 	// Méthodes getL* de Mesh : retournent la maille d'ID local i.
 	// La numérotation commence souvent à 0, mais peut commencer à 1 (voire
@@ -37,18 +36,17 @@ GMDSQualifSerie::GMDSQualifSerie (
 	// sans itérateur (avantage).
 	try
 	{
-
 	switch (dimension)
 	{
 		case	2	:
 			if (0 != name.size ( ))
-				_surface	= mesh.getGroup<Face> (name);
+				fillFaces(mesh, name);
 			else
 				mesh.getAll<Face> (_faces);
 			break;
 		case	3	:
 			if (0 != name.size ( ))
-				_volume		= mesh.getGroup<Region> (name);
+				fillRegions(mesh, name);
 			else
 				mesh.getAll<Region> (_regions);
 			break;
@@ -97,27 +95,26 @@ GMDSQualifSerie::GMDSQualifSerie (
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-	gmds::CellGroup<gmds::Face>& s, const std::string& name,
+	const std::vector<gmds::Face>& s, const std::string& name,
 	const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 2),
-	  _mesh (0), _destroy (false), _surface (&s), _volume (0),
-	  _faces ( ), _regions ( )
+	  _mesh (0), _destroy (false), _faces (s), _regions ()
 {
 }	// GMDSQualifSerie::GMDSQualifSerie
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-	gmds::CellGroup<gmds::Region>& v, const std::string& name, const std::string& fileName)
+	const std::vector<gmds::Region>& v, const std::string& name, 
+	const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 3),
-	  _mesh (0), _destroy (false), _surface (0), _volume (&v),
-	  _faces ( ), _regions ( )
+	  _mesh (0), _destroy (false), _faces (), _regions (v)
 {
 }	// GMDSQualifSerie::GMDSQualifSerie
 
 
 GMDSQualifSerie::GMDSQualifSerie (const GMDSQualifSerie&)
 	: AbstractQualifSerieAdapter ("Invalid file name", "Invalid serie name", 3),
-	  _surface (0), _volume (0)
+	  _faces (), _regions ()
 {
 	assert (0 && "GMDSQualifSerie copy constructor is not allowed.");
 }	// GMDSQualifSerie::GMDSQualifSerie
@@ -136,6 +133,7 @@ GMDSQualifSerie::~GMDSQualifSerie ( )
 	if (true == _destroy)
 		delete _mesh;
 	_mesh	= 0;
+
 }	// GMDSQualifSerie::~GMDSQualifSerie
 
 
@@ -144,17 +142,9 @@ size_t  GMDSQualifSerie::getCellCount ( ) const
 	switch (getDimension ( ))
 	{
 		case	2	:
-			if (0 == _surface)
-				return _faces.size ( );
-			else
-				return _surface->size ( );
-			break;
+			return _faces.size ( );
 		case	3	:
-			if (0 == _volume)
-				return _regions.size ( );
-			else
-				return _volume->size ( );
-			break;
+			return _regions.size ( );
 	}	// switch (getDimension ( ))
 
 	INTERNAL_ERROR (exc, "Absence de groupe de mailles et de maillage.", "GMDSQualifSerie::getCellCount")
@@ -342,29 +332,13 @@ Qualif::Maille& GMDSQualifSerie::getCell (size_t i) const
 
 Face GMDSQualifSerie::getGMDSFace (size_t i) const
 {
-	if ((0 == _surface) && (0 == _mesh))
-	{
-		INTERNAL_ERROR (exc, "Surface nulle pour une demande de face",
-						" GMDSQualifSerie::getGMDSFace")
-		throw exc;
-	}	// if ((0 == _surface) && (0 == _mesh))
-
-	gmds::Face face	= 0 == _surface ? _faces[i] : _mesh->get<gmds::Face>((*_surface) [i]);
-	return face;
+	return _faces[i];
 }	//  GMDSQualifSerie::getGMDSFace
 
 
 Region GMDSQualifSerie::getGMDSRegion (size_t i) const
 {
-	if ((0 == _volume) && (0 == _mesh))
-	{
-		INTERNAL_ERROR (exc, "Volume nul pour une demande de region",
-						" GMDSQualifSerie::getGMDSRegion")
-		throw exc;
-	}	// if ((0 == _volume) && (0 == _mesh))
-
-	gmds::Region region	= 0 == _volume ? _regions [i] : _mesh->get<Region>((*_volume) [i]);
-	return region;
+	return _regions[i];
 }	//  GMDSQualifSerie::getGMDSRegion
 
 
@@ -386,13 +360,7 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 		{
 			case	2	:
 			{
-				if ((0 == _surface) && (0 == _mesh))
-				{
-					INTERNAL_ERROR (exc, "Surface nulle pour une dimension 2",
-								" GMDSQualifSerie::getCellType")
-					throw exc;
-				}	// if ((0 == _surface) && (0 == _mesh))
-				gmds::Face	face = 0 == _surface ? _faces [i] : _mesh->get<Face>((*_surface) [i]);
+				gmds::Face face = _faces[i];
 
 				switch (face.type())
 				{
@@ -410,15 +378,7 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 			}	// case 2
 			break;
 			case 3	:
-			{
-				if ((0 == _volume) && (0 == _mesh))
-				{
-					INTERNAL_ERROR (exc, "Volume nul pour une dimension 3",
-								" GMDSQualifSerie::getCellType")
-					throw exc;
-				}	// if ((0 == _volume) && (0 == _mesh))
-
-				gmds::Region cell =  0 == _volume ? _regions [i] : _mesh->get<Region>((*_volume) [i]);
+			{	gmds::Region cell =  _regions[i];
 
 				switch (cell.type())
 				{
@@ -490,10 +450,7 @@ size_t GMDSQualifSerie::getCellType (size_t i) const
 
 bool GMDSQualifSerie::isVolumic ( ) const
 {
-	if ((0 != _volume) || (0 != _regions.size ( )))
-		return true;
-
-	return false;
+	return (0 != _regions.size());
 }	// GMDSQualifSerie::isVolumic
 
 
@@ -502,3 +459,22 @@ bool GMDSQualifSerie::isThreadable ( ) const
 	return true;
 }	// GMDSQualifSerie::isThreadable ( )
 
+void GMDSQualifSerie::fillFaces(gmds::Mesh& mesh, const std::string& name)
+{
+	auto group = mesh.getGroup<gmds::Face>(name);
+	_faces.clear();
+	_faces.resize(group->size());
+	for (auto i = 0 ; i < group->size(); i++) {
+		_faces[i] = mesh.get<gmds::Face>((*group)[i]);
+	}
+}
+
+void GMDSQualifSerie::fillRegions(gmds::Mesh& mesh, const std::string& name)
+{
+	auto group = mesh.getGroup<gmds::Region>(name);
+	_regions.clear();
+	_regions.resize(group->size());
+	for (auto i = 0; i < group->size() ; i++) {
+		_regions[i] = mesh.get<gmds::Region>((*group)[i]);
+	}
+}

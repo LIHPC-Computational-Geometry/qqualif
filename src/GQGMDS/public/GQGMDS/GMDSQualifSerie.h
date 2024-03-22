@@ -53,7 +53,7 @@ public :
 	 * @param		Nom du fichier d'où est éventuellement issue la surface.
 	 */
 	GMDSQualifSerie (
-			gmds::CellGroup<gmds::Face>& surface, const std::string& name,
+			const std::vector<gmds::Face>& surface, const std::string& name,
 			const std::string& fileName);
 
 	/**
@@ -65,7 +65,7 @@ public :
 	 * @param		Nom du fichier d'où est éventuellement issue le volume.
 	 */
 	GMDSQualifSerie (
-			gmds::CellGroup<gmds::Region>& volume, const std::string& name,
+			const std::vector<gmds::Region>& volume, const std::string& name,
 			const std::string& fileName);
 
 	/**
@@ -142,17 +142,12 @@ private :
 	/** Faut-il détruire ce maillage à la fin ? */
 	bool								_destroy;
 
-	/** L'éventuelle surface représentée. */
-	gmds::CellGroup<gmds::Face>*		_surface;
-
-	/** L'éventuel volume représenté. */
-	gmds::CellGroup<gmds::Region>*		_volume;
-
-	/** Pour les maillages sans groupes de mailles (surfaces ou volumes) :
-	 * avoir la liste (non trouée) des mailles analysées (polygones/polyèdres).
-	 */
-	std::vector<gmds::Face>				_faces;
+	std::vector<gmds::Face>			_faces;
 	std::vector<gmds::Region>			_regions;
+
+	void fillFaces(gmds::Mesh& mesh, const std::string& name);
+	void fillRegions(gmds::Mesh& mesh, const std::string& name);
+
 };	// class GMDSQualifSerie
 
 }	// namespace GQualif
