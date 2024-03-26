@@ -11,7 +11,7 @@
 
 #include <LimaP/maillage_it.h>
 #ifdef USE_GMDS
-#include <GMDS/IG/IGMesh.h>
+#include <gmds/ig/Mesh.h>
 #endif	// USE_GMDS
 
 #include <memory>
@@ -37,13 +37,13 @@ class QtMeshAnalysisView : public QMdiSubWindow
 	virtual ~QtMeshAnalysisView ( );
 
 	/**
-	 * @param		Menu affiché lorsque l'utilisateur clique du bouton droit
+	 * @param		Menu affichÃ© lorsque l'utilisateur clique du bouton droit
 	 *				de la souris.
 	 */
 	virtual void setContextMenu (QMenu* menu);
 
 	/**
-	 * @return		Une référence sur la fenêtre d'analyse représentée.
+	 * @return		Une rÃ©fÃ©rence sur la fenÃªtre d'analyse reprÃ©sentee.
 	 */
 	GQualif::QtQualifWidget& getAnalysisPanel ( )
 	{ return *_analysisWidget; }
@@ -54,7 +54,7 @@ class QtMeshAnalysisView : public QMdiSubWindow
 	protected :
 
 	/**
-	 * Affiche le menu popup associé à  l'emplacement du curseur de la souris.
+	 * Affiche le menu popup associÃ© Ã  l'emplacement du curseur de la souris.
 	 */
 	virtual void contextMenuEvent (QContextMenuEvent* event);
 
@@ -74,8 +74,8 @@ class QtMeshAnalysisView : public QMdiSubWindow
 // ============================================================================
 
 /**
- * Classe prenant en charge un maillage <I>Lima</I> dont elle propose à 
- * l'utilisateur de sélectionner les séries à  analyser au sein d'un même
+ * Classe prenant en charge un maillage <I>Lima</I> dont elle propose Ã 
+ * l'utilisateur de sÃ©lectionner les sÃ©ries Ã  analyser au sein d'un mÃªme
  * histogramme.
  */
 class QtLimaMeshAnalysisView : public QtMeshAnalysisView
@@ -84,7 +84,7 @@ class QtLimaMeshAnalysisView : public QtMeshAnalysisView
 
 	/**
 	 * Charge le maillage contenu dans le fichier <I>fileName</I> et propose
-	 * à  l'utilisateur de sélectionner les groupes de données à  analyser.
+	 * Ã  l'utilisateur de sÃ©lectionner les groupes de donnÃ©es Ã  analyser.
 	 */
 	QtLimaMeshAnalysisView (QMdiArea* parent, const IN_STD string& appTitle,
 	                        const IN_STD string&fileName);
@@ -108,8 +108,8 @@ class QtLimaMeshAnalysisView : public QtMeshAnalysisView
 // ============================================================================
 
 /**
- * Classe prenant en charge un maillage <I>GMDS</I> dont elle propose à 
- * l'utilisateur de sélectionner les séries à analyser au sein d'un même
+ * Classe prenant en charge un maillage <I>GMDS</I> dont elle propose Ã 
+ * l'utilisateur de sÃ©lectionner les sÃ©ries Ã  analyser au sein d'un mÃªme
  * histogramme.
  */
 class QtGMDSMeshAnalysisView : public QtMeshAnalysisView
@@ -118,7 +118,7 @@ class QtGMDSMeshAnalysisView : public QtMeshAnalysisView
 
 	/**
 	 * Charge le maillage contenu dans le fichier <I>fileName</I> et propose
-	 * à  l'utilisateur de sélectionner les groupes de données à  analyser.
+	 * Ã  l'utilisateur de sÃ©lectionner les groupes de donnÃ©es Ã  analyser.
 	 */
 	QtGMDSMeshAnalysisView (QMdiArea* parent, const IN_STD string& appTitle,
 	                        const IN_STD string&fileName);
@@ -131,7 +131,7 @@ class QtGMDSMeshAnalysisView : public QtMeshAnalysisView
 	QtGMDSMeshAnalysisView (const QtGMDSMeshAnalysisView&);
 	QtGMDSMeshAnalysisView& operator = (const QtGMDSMeshAnalysisView&);
 
-	IN_STD unique_ptr<gmds::IGMesh>	_mesh;
+	IN_STD unique_ptr<gmds::Mesh>	_mesh;
 };	// class QtGMDSMeshAnalysisView
 
 #endif // USE_GMDS
@@ -142,7 +142,7 @@ class QtGMDSMeshAnalysisView : public QtMeshAnalysisView
 // ============================================================================
 
 /**
- * Fenêtre principale de l'application permettant d'afficher plusieurs analyses
+ * FenÃªtre principale de l'application permettant d'afficher plusieurs analyses
  * dans un support MDI.
  */
 class QtCalQualMainWindow : public QMainWindow
