@@ -40,7 +40,7 @@ public :
 	 * @param		Eventuel nom du fichier d'où est chargée la série.
 	 */
 	GMDSQualifSerie (
-			gmds::Mesh& mesh, bool destroy,
+			gmds::Mesh& mesh,
 			unsigned char dimension,
 			const std::string& name, const std::string& fileName);
 
@@ -135,12 +135,6 @@ private :
 	 */
 	GMDSQualifSerie (const GMDSQualifSerie&);
 	GMDSQualifSerie& operator = (const GMDSQualifSerie&);
-
-	/** L'éventuel maillage associé. */
-	gmds::Mesh*					_mesh;
-
-	/** Faut-il détruire ce maillage à la fin ? */
-	bool								_destroy;
 
 	std::vector<gmds::Face>			_faces;
 	std::vector<gmds::Region>			_regions;

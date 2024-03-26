@@ -21,11 +21,11 @@ static const Charset	charset ("àéèùô");
 
 
 GMDSQualifSerie::GMDSQualifSerie (
-		gmds::Mesh& mesh, bool destroy,
+		gmds::Mesh& mesh,
 		unsigned char dimension,
 		const std::string& name, const std::string& fileName)
 : AbstractQualifSerieAdapter (fileName, name, dimension),
-  _mesh (&mesh), _destroy (destroy), _faces (), _regions ()
+  _faces (), _regions ()
 {
 	// Méthodes getL* de Mesh : retournent la maille d'ID local i.
 	// La numérotation commence souvent à 0, mais peut commencer à 1 (voire
@@ -98,7 +98,7 @@ GMDSQualifSerie::GMDSQualifSerie (
 	const std::vector<gmds::Face>& s, const std::string& name,
 	const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 2),
-	  _mesh (0), _destroy (false), _faces (s), _regions ()
+	  _faces (s), _regions ()
 {
 }	// GMDSQualifSerie::GMDSQualifSerie
 
@@ -107,7 +107,7 @@ GMDSQualifSerie::GMDSQualifSerie (
 	const std::vector<gmds::Region>& v, const std::string& name, 
 	const std::string& fileName)
 	: AbstractQualifSerieAdapter (fileName, name, 3),
-	  _mesh (0), _destroy (false), _faces (), _regions (v)
+	  _faces (), _regions (v)
 {
 }	// GMDSQualifSerie::GMDSQualifSerie
 
@@ -130,10 +130,6 @@ GMDSQualifSerie& GMDSQualifSerie::operator = (
 
 GMDSQualifSerie::~GMDSQualifSerie ( )
 {
-	if (true == _destroy)
-		delete _mesh;
-	_mesh	= 0;
-
 }	// GMDSQualifSerie::~GMDSQualifSerie
 
 

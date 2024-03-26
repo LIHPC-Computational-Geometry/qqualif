@@ -333,12 +333,12 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 				{
 					case	2	:
 					{
-						serie	= new GMDSQualifSerie (*_mesh, false, (*it).second, (*it).first, fileName);
+						serie	= new GMDSQualifSerie (*_mesh, (*it).second, (*it).first, fileName);
 					}	// case    2
 					break;
 					case	3	:
 					{
-						serie	= new GMDSQualifSerie(*_mesh, false, (*it).second, (*it).first, fileName);
+						serie	= new GMDSQualifSerie(*_mesh, (*it).second, (*it).first, fileName);
 					}	// case    3
 					break;
 					default		:
@@ -373,7 +373,7 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 				throw Exception (
 							UTF8String ("Absence de mailles 2D ou 3D dans le maillage.", charset));
 			serie	= new GMDSQualifSerie(
-							*(_mesh.get ( )), false, dimension, "", fileName);
+							*(_mesh.get ( )), dimension, "", fileName);
 			getAnalysisPanel ( ).addSerie (serie);
 		}	// else if (0 != groups.size ( ))
 
