@@ -302,7 +302,7 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 {
 	try
 	{
-		GMDSQualifSerie*	serie	= 0;
+		AbstractQualifSerie*	serie	= 0;
 
 		_mesh.reset (new gmds::Mesh(QtCalQualMainWindow::gmdsMask));
 		loadMesh (*_mesh.get ( ), fileName);
@@ -333,12 +333,12 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 				{
 					case	2	:
 					{
-						serie	= new GMDSQualifSerie (*_mesh, (*it).second, (*it).first, fileName);
+						serie	= new GMDSFaceQualifSerie (*_mesh, (*it).first, fileName);
 					}	// case    2
 					break;
 					case	3	:
 					{
-						serie	= new GMDSQualifSerie(*_mesh, (*it).second, (*it).first, fileName);
+						serie	= new GMDSRegionQualifSerie(*_mesh, (*it).first, fileName);
 					}	// case    3
 					break;
 					default		:
@@ -364,16 +364,16 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 			if (0 != _mesh->getNbRegions ( ))
 			{
 				dimension	= 3;
+				serie	= new GMDSRegionQualifSerie(*(_mesh.get ( )), "", fileName);
 			}	// if (0 != _mesh->getNbRegions ( ))
 			else if (0 != _mesh->getNbFaces ( ))
 			{
 				dimension	= 2;
+				serie	= new GMDSFaceQualifSerie(*(_mesh.get ( )), "", fileName);
 			}	// else if (0 != _mesh->getNbFaces ( ))
 			if (0 == dimension)
 				throw Exception (
 							UTF8String ("Absence de mailles 2D ou 3D dans le maillage.", charset));
-			serie	= new GMDSQualifSerie(
-							*(_mesh.get ( )), dimension, "", fileName);
 			getAnalysisPanel ( ).addSerie (serie);
 		}	// else if (0 != groups.size ( ))
 

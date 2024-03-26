@@ -24,6 +24,7 @@ namespace GQualif
  * à soumettre à <I>Qualif</I> en vue d'être analysée (ex : surface composée de
  * polygones, ...).</P>
  */
+template<typename TCellType, unsigned char Dim>
 class GMDSQualifSerie : public AbstractQualifSerieAdapter
 {
 public :
@@ -33,7 +34,6 @@ public :
 	 * @param		Maillage chargé.
 	 * @param		<I>true</I> si le maillage est adopté (et donc détruit par
 	 * 				cet adapteur), <I>false</I> dans le cas contraire.
-	 * @param		Dimension des données.
 	 * @param		Eventuel nom de la série du maillage à analyser. Si nul,
 	 *				utilise <I>mesh.getLFace</I> ou <I>mesh.getLRegion</I>,
 	 *				selon <I>dimension</I>, pour accéder aux mailles.
@@ -41,31 +41,18 @@ public :
 	 */
 	GMDSQualifSerie (
 			gmds::Mesh& mesh,
-			unsigned char dimension,
 			const std::string& name, const std::string& fileName);
 
 	/**
 	 * Constructeur 2. Les données reçues en argument ne seront pas détruites
 	 * lors de la destruction de cette série.
-	 * @param		Surface <I>GMDS</I> représentée.
-	 * @param		Eventuel nom de la surface (au sens de l'application). En 
+	 * @param		Vecteur de mailles<I>GMDS</I> représentées.
+	 * @param		Eventuel nom du groupe de mailles (au sens de l'application). En 
 	 * 				son absence c'est le nom du fichier qui sera utilisé.
 	 * @param		Nom du fichier d'où est éventuellement issue la surface.
 	 */
 	GMDSQualifSerie (
-			const std::vector<gmds::Face>& surface, const std::string& name,
-			const std::string& fileName);
-
-	/**
-	 * Constructeur 3. Les données reçues en argument ne seront pas détruites
-	 * lors de la destruction de cette série.
-	 * @param		Volume <I>GMDS</I> représenté.
-	 * @param		Eventuel nom du volume (au sens de l'application). En 
-	 * 				son absence c'est le nom du fichier qui sera utilisé.
-	 * @param		Nom du fichier d'où est éventuellement issue le volume.
-	 */
-	GMDSQualifSerie (
-			const std::vector<gmds::Region>& volume, const std::string& name,
+			const std::vector<TCellType>& v, const std::string& name,
 			const std::string& fileName);
 
 	/**
@@ -84,28 +71,16 @@ public :
 	 * 				étant susceptible d'évoluer lors d'autres appels à cette
 	 * 				<I>API</I></B>.
 	 * @see			getCellType
-	 * @see			getGMDSFace
-	 * @see			getGMDSRegion
+	 * @see			getCell
+	 * @see			getGMDSCell
 	 */
 	virtual Qualif::Maille& getCell (size_t i) const;
 
 	/**
 	 * @return		La i-ème maille en tant que polygone <I>GMDS</I>.
-	 * @warning		Lève une exception si <I>i >= getCellCount ( )</I> ou si
-	 *				la i-ème maille n'est pas de type <I>Face de GMDS</I>.
 	 * @see			getCell
-	 * @see			getGMDSRegion
 	 */
-	virtual gmds::Face getGMDSFace (size_t i) const;
-
-	/**
-	 * @return		La i-ème maille en tant que polyèdre <I>GMDS</I>.
-	 * @warning		Lève une exception si <I>i >= getCellCount ( )</I> ou si
-	 *				la i-ème maille n'est pas de type <I>Region de GMDS</I>.
-	 * @see			getCell
-	 * @see			getGMDSFace
-	 */
-	virtual gmds::Region getGMDSRegion (size_t i) const;
+	virtual TCellType getGMDSCell (size_t i) const;
 
 	/**
 	 * @return		Le type, au sens <I>QualifHelper</I>, de la i-ème maille.
@@ -136,13 +111,15 @@ private :
 	GMDSQualifSerie (const GMDSQualifSerie&);
 	GMDSQualifSerie& operator = (const GMDSQualifSerie&);
 
-	std::vector<gmds::Face>			_faces;
-	std::vector<gmds::Region>			_regions;
+	// gmdsCells est un vector de Face ou Region
+	std::vector<TCellType> _gmdsCells;
 
-	void fillFaces(gmds::Mesh& mesh, const std::string& name);
-	void fillRegions(gmds::Mesh& mesh, const std::string& name);
+	void fill(gmds::Mesh& mesh, const std::string& name);
 
 };	// class GMDSQualifSerie
+
+typedef GMDSQualifSerie<gmds::Face, 2> GMDSFaceQualifSerie;
+typedef GMDSQualifSerie<gmds::Region, 3> GMDSRegionQualifSerie;
 
 }	// namespace GQualif
 
