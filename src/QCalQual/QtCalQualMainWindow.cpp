@@ -23,8 +23,9 @@
 #include <LimaP/reader.h>
 #ifdef USE_GMDS
 // TODO F.Ledoux#include <GMDSIO/CubitFacetReader.h>
-#include <GMDS/IO/MeditReader.h>
-#include <GMDS/IO/VTKReader.h>
+#include <gmds/io/IGMeshIOService.h>
+#include <gmds/io/MeditReader.h>
+#include <gmds/io/VTKReader.h>
 #endif	// USE_GMDS
 
 #include <memory>
@@ -37,7 +38,7 @@ using namespace Lima;
 using namespace gmds;
 #endif	// USE_GMDS
 
-static const Charset	charset ("‡ÈË˘Ù");
+static const Charset	charset ("√†√©√®√π√¥");
 USE_ENCODING_AUTODETECTION
 
 
@@ -56,8 +57,9 @@ namespace GQualif
 
 #ifdef USE_GMDS
 const int QtCalQualMainWindow::gmdsMask	=
-				DIM3|N|E|F|R|E2N|F2N|R2N|F2E|R2F|F2R|N2F|N2E|E2F|N2R|E2R|R2E; 
-const int readersMask	= N|F|R;
+				gmds::DIM3|gmds::N|gmds::E|gmds::F|gmds::R|gmds::E2N|
+				gmds::F2N|gmds::R2N|gmds::F2E|gmds::R2F|gmds::F2R|
+				gmds::N2F|gmds::N2E|gmds::E2F|gmds::N2R|gmds::E2R|gmds::R2E;
 
 // Instanciations explicites :
 //template class GMDSQualifSerie< QtCalQualMainWindow::gmdsMask >;
@@ -130,7 +132,7 @@ QtLimaMeshAnalysisView::QtLimaMeshAnalysisView (
 			QtSeriesChoiceDialog	dialog (this, appTitle, groups);
 			dialog.exec ( );
 			if (QDialog::Accepted != dialog.result ( ))
-				throw Exception (UTF8String ("OpÈration annulÈe par l'utilisateur.", charset));
+				throw Exception (UTF8String ("Op√©ration annul√©e par l'utilisateur.", charset));
 
 			groups	= dialog.getGroups ( );
 		}
@@ -200,7 +202,7 @@ QtLimaMeshAnalysisView::QtLimaMeshAnalysisView (
 	catch (const Exception& exc)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage Lima contenu dans le "
+		message << "Impossibilit√© de charger le maillage Lima contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << exc.getFullMessage ( );
 		throw Exception (message);
@@ -208,7 +210,7 @@ QtLimaMeshAnalysisView::QtLimaMeshAnalysisView (
 	catch (const erreur& err)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage Lima contenu dans le "
+		message << "Impossibilit√© de charger le maillage Lima contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << err.what ( );
 		throw Exception (message);
@@ -216,7 +218,7 @@ QtLimaMeshAnalysisView::QtLimaMeshAnalysisView (
 	catch (const exception& exc)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage Lima contenu dans le "
+		message << "Impossibilit√© de charger le maillage Lima contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << exc.what ( );
 		throw Exception (message);
@@ -224,8 +226,8 @@ QtLimaMeshAnalysisView::QtLimaMeshAnalysisView (
 	catch (...)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage Lima contenu dans le "
-		        << "fichier " << fileName << " : erreur non documentÈe.";
+		message << "Impossibilit√© de charger le maillage Lima contenu dans le "
+		        << "fichier " << fileName << " : erreur non document√©e.";
 		throw Exception (message);
 	}
 }	// QtLimaMeshAnalysisView::QtLimaMeshAnalysisView
@@ -257,25 +259,29 @@ QtLimaMeshAnalysisView::~QtLimaMeshAnalysisView ( )
 //                       LA CLASSE QtGMDSMeshAnalysisView
 // ============================================================================
 
-void loadMesh (	gmds::IGMesh& mesh, const string& fileName)
+void loadMesh (	gmds::Mesh& mesh, const string& fileName)
 {
 	TkUtil::File	file (fileName);
 	if ((0 == strcasecmp (file.getExtension ( ).c_str ( ), "mesh")) ||
 	    (0 == strcasecmp (file.getExtension ( ).c_str ( ), "med")))
 	{
-		gmds::MeditReader<gmds::IGMesh>	reader (mesh);
-		reader.read (fileName, readersMask);
+		gmds::IGMeshIOService ioService(&mesh);
+		gmds::MeditReader reader(&ioService);
+		reader.setCellOptions(gmds::R|gmds::F|gmds::N);
+		reader.setCellOptions(gmds::R|gmds::F|gmds::N);
+		reader.read(fileName);
 	}	// mesh med
 	else if ((0 == strcasecmp (file.getExtension ( ).c_str ( ), "vtu")) ||
 	         (0 == strcasecmp (file.getExtension ( ).c_str ( ), "vtp")))
 	{
-		gmds::VTKReader<gmds::IGMesh>	reader (mesh);
+		gmds::IGMeshIOService ioService(&mesh);
+		gmds::VTKReader	reader (&ioService);
 		reader.read (fileName);
 	}	// vtu vtp
 	else if (0 == strcasecmp (file.getExtension ( ).c_str ( ), "fac"))
 	{
 // TODO ADD F. LEDOUX
-//		gmds::CubitFacetReader<gmds::IGMesh>	reader (mesh);
+//		gmds::CubitFacetReader<gmds::Mesh>	reader (mesh);
 //		reader.read (fileName);
 		UTF8String	error (charset);
 		error << "Le fichier " << fileName << " n'est pas lisible par GMDS.";
@@ -296,23 +302,22 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 {
 	try
 	{
-		GMDSQualifSerie*	serie	= 0;
+		AbstractQualifSerie*	serie	= 0;
 
-		_mesh.reset (new gmds::IGMesh(QtCalQualMainWindow::gmdsMask));
+		_mesh.reset (new gmds::Mesh(QtCalQualMainWindow::gmdsMask));
 		loadMesh (*_mesh.get ( ), fileName);
 		vector < pair <string, unsigned char> >	groups;
-		for (gmds::IGMesh::surfaces_iterator its =
-			_mesh->surfaces_begin ( ); _mesh->surfaces_end ( ) != its; its++)
-			 groups.push_back (pair<string, unsigned char>((*its).name ( ), 2));
-		for (gmds::IGMesh::volumes_iterator itv =
-			_mesh->volumes_begin ( ); _mesh->volumes_end ( ) != itv; itv++)
-			 groups.push_back (pair<string, unsigned char>((*itv).name ( ), 3));
+
+		for (auto its = _mesh->groups_begin<gmds::Face>(); its != _mesh->groups_end<gmds::Face>(); its++)
+			groups.push_back (pair<string, unsigned char>((*its)->name ( ), 2));
+		for (auto itv = _mesh->groups_begin<gmds::Region>(); itv != _mesh->groups_end<gmds::Region>(); itv++)
+			 groups.push_back (pair<string, unsigned char>((*itv)->name ( ), 3));
 		if (0 != groups.size ( ))
 		{
 			QtSeriesChoiceDialog	dialog (this, appTitle, groups);
 			dialog.exec ( );
 			if (QDialog::Accepted != dialog.result ( ))
-				throw Exception (UTF8String ("OpÈration annulÈe par l'utilisateur.", charset));
+				throw Exception (UTF8String ("Op√©ration annul√©e par l'utilisateur.", charset));
 
 			groups	= dialog.getGroups ( );
 		}	// if (0 != groups.size ( ))
@@ -328,14 +333,12 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 				{
 					case	2	:
 					{
-						IGMesh::surface& s = _mesh->getSurface ((*it).first);
-						serie	= new GMDSQualifSerie (s, (*it).first, fileName);
+						serie	= new GMDSFaceQualifSerie (*_mesh, (*it).first, fileName);
 					}	// case    2
 					break;
 					case	3	:
 					{
-						IGMesh::volume&	v = _mesh->getVolume ((*it).first);
-						serie	= new GMDSQualifSerie(v, (*it).first, fileName);
+						serie	= new GMDSRegionQualifSerie(*_mesh, (*it).first, fileName);
 					}	// case    3
 					break;
 					default		:
@@ -361,16 +364,16 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 			if (0 != _mesh->getNbRegions ( ))
 			{
 				dimension	= 3;
+				serie	= new GMDSRegionQualifSerie(*(_mesh.get ( )), "", fileName);
 			}	// if (0 != _mesh->getNbRegions ( ))
 			else if (0 != _mesh->getNbFaces ( ))
 			{
 				dimension	= 2;
+				serie	= new GMDSFaceQualifSerie(*(_mesh.get ( )), "", fileName);
 			}	// else if (0 != _mesh->getNbFaces ( ))
 			if (0 == dimension)
 				throw Exception (
 							UTF8String ("Absence de mailles 2D ou 3D dans le maillage.", charset));
-			serie	= new GMDSQualifSerie(
-							*(_mesh.get ( )), false, dimension, "", fileName);
 			getAnalysisPanel ( ).addSerie (serie);
 		}	// else if (0 != groups.size ( ))
 
@@ -380,7 +383,7 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 	catch (const Exception& exc)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage GMDS contenu dans le "
+		message << "Impossibilit√© de charger le maillage GMDS contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << exc.getFullMessage ( );
 		throw Exception (message);
@@ -388,7 +391,7 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 	catch (const gmds::GMDSException& gexc)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage GMDS contenu dans le "
+		message << "Impossibilit√© de charger le maillage GMDS contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << gexc.what ( );
 		throw Exception (message);
@@ -396,7 +399,7 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 	catch (const exception& exc)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage GMDS contenu dans le "
+		message << "Impossibilit√© de charger le maillage GMDS contenu dans le "
 		        << "fichier " << fileName << " :"
 		        << "\n" << exc.what ( );
 		throw Exception (message);
@@ -404,8 +407,8 @@ QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView (
 	catch (...)
 	{
 		UTF8String	message (charset);
-		message << "ImpossibilitÈ de charger le maillage GMDS contenu dans le "
-		        << "fichier " << fileName << " : erreur non documentÈe.";
+		message << "Impossibilit√© de charger le maillage GMDS contenu dans le "
+		        << "fichier " << fileName << " : erreur non document√©e.";
 		throw Exception (message);
 	}
 }	// QtGMDSMeshAnalysisView::QtGMDSMeshAnalysisView
@@ -444,7 +447,7 @@ QtCalQualMainWindow::QtCalQualMainWindow (
 {
 	setWindowTitle (appTitle.c_str ( ));
 	_mdiArea	= new QMdiArea (this);
-	// Les panneaux graphiques ne re√ßoivent pas l'Èv√®nement focusInEvent
+	// Les panneaux graphiques ne re√ßoivent pas l'√©v√®nement focusInEvent
 	// car c'est un anc√™tre (QtMeshAnalysisView) qui le recevra => s'informer du
 	// changement de fen√™tre active afin d'en faire part au gestionnaire
 	// de graphiques :
@@ -452,7 +455,7 @@ QtCalQualMainWindow::QtCalQualMainWindow (
 	         SLOT (subWindowActivated (QMdiSubWindow*)));
 	setCentralWidget (_mdiArea);
 
-	// CrÈation du menu :
+	// Cr√©	ation du menu :
 	QAction*	action	= 0;
 	QMenuBar*	bar	= menuBar ( );
 	QMenu*		menu	= bar->addMenu ("Application");
@@ -465,14 +468,14 @@ QtCalQualMainWindow::QtCalQualMainWindow (
 	menu->addAction (analysisAction);
 	menu->addSeparator ( );
 	menu->addAction (QLatin1String ("Quitter"), this, SLOT (exitCallback ( )));
-	_windowMenu	= bar->addMenu (QLatin1String ("FenÍtre"));
+	_windowMenu	= bar->addMenu (QLatin1String ("Fen√™tre"));
 	_windowMenu->addAction (QLatin1String ("Cascade"), this, SLOT (cascadeCallback ( )));
 	_windowMenu->addAction (QLatin1String ("Tuiles"), this, SLOT (tileCallback ( )));
 	_windowMenu->addSeparator ( );
 	_windowMenu->addAction (QwtChartsManager::getPrintAction ( ));
 	_windowMenu->addSeparator ( );
 
-	// Utilisation de la barre d'outils par dÈfaut de QwtChartsManager :
+	// Utilisation de la barre d'outils par d√©faut de QwtChartsManager :
 	addToolBar (Qt::LeftToolBarArea, &QwtChartsManager::getToolBar ( ));
 }	// QtCalQualMainWindow::QtCalQualMainWindow
 
@@ -537,7 +540,7 @@ void QtCalQualMainWindow::analyseMeshCallback ( )
 		QStringList	files	= dialog.selectedFiles ( );
 		lastFile			= files [0];
 		lastFilter			= dialog.selectedNameFilter ( );
-		error << "Erreur rencontrÈe lors du chargement du maillage du fichier "
+		error << "Erreur rencontr√©e lors du chargement du maillage du fichier "
 		      << lastFile.toStdString ( ) << " :" << "\n";
 
 		QtMeshAnalysisView*	analysisWidget	= createAnalysisView (
@@ -556,7 +559,7 @@ void QtCalQualMainWindow::analyseMeshCallback ( )
 	}
 	catch (...)
 	{
-		error << "Erreur non documentÈe.";
+		error << "Erreur non document√©e.";
 	}
 
 	QtMessageBox::displayErrorMessage (
@@ -568,7 +571,7 @@ void QtCalQualMainWindow::analyseMeshCallback ( )
 void QtCalQualMainWindow::exitCallback ( )
 {
 	if (1 == QMessageBox::warning (this, windowTitle ( ),
-				QSTR ("Souhaitez-vous rÈellement quitter cette application ?"),
+				QSTR ("Souhaitez-vous r√©ellement quitter cette application ?"),
 				"Oui", "Non", QString ( ), 0, -1))
 		return;
 
@@ -616,7 +619,7 @@ QtMeshAnalysisView* QtCalQualMainWindow::createAnalysisView (
 	else
 	{
 		UTF8String	message (charset);
-		message << "Format de maillage non supportÈ pour le maillage contenu "
+		message << "Format de maillage non support√© pour le maillage contenu "
 		        << "dans le fichier " << fileName << ".";
 		throw Exception (message);
 	}	// else if (Lima::SUFFIXE != ...
