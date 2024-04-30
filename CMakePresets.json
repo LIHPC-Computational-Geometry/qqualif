@@ -11,7 +11,7 @@
           "qualifinternal_ROOT": "$env{INSTALL_DIR}/qualif",
           "QwtCharts_ROOT": "$env{INSTALL_DIR}/qwtcharts",
           "QtUtil_ROOT": "$env{INSTALL_DIR}/qtutil",
-          "gmds_ROOT": "$env{INSTALL_DIR}/gmds072"
+          "gmds_ROOT": "$env{INSTALL_DIR}/gmds"
         }
       }
     ]
