@@ -1,7 +1,14 @@
+Version 4.3.2 : 14/06/24
+===============
+
+Portage cmake VTK 7.1.1/9.3.0 GUIToolkitsVariables v 1.5.0 (VTK_MAJOR_VERSION).
+
+
 Version 4.3.1 : 25/04/24
 ===============
 
 Migration GMDS.
+
 
 Version 4.3.0 : 13/12/23
 ===============
