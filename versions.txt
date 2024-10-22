@@ -1,8 +1,8 @@
 Version 4.4.0 : 22/06/24
 ===============
 
-Classe QtQualityDividerWidget permettant de rechercher dans un maillage les mailles correspondant à un certain profil de qualité
-(domaine min-max d'un critère de qualité), l'objectif étant de rechercher les mailles invalides dans une botte de foin !
+Classe QtQualityDividerWidget permettant de rechercher dans un maillage les mailles correspondant Ã  un certain profil de qualitÃ©
+(domaine min-max d'un critÃ¨re de qualitÃ©), l'objectif Ã©tant de rechercher les mailles invalides dans une botte de foin !
 
 
 Version 4.3.2 : 14/06/24
@@ -38,26 +38,26 @@ Portage GitHub environnement podman/spack/tests CI.
 Version 4.0.2 : 15/02/23
 ===============
 
-Retouches cmake : détection de la version utilisée de VTK, teste sur la dépendance à Lima.
+Retouches cmake : dÃ©tection de la version utilisÃ©e de VTK, teste sur la dÃ©pendance Ã  Lima.
 Qualif v 2.3.5
 
 
 Version 4.0.1 : 03/02/23
 ===============
 
-Retouches cmake : suppression appel à FindHdf145.cmake.
+Retouches cmake : suppression appel Ã  FindHdf145.cmake.
 
 
 Version 4.0.0 : 10/01/23
 ===============
 
-Intégration au projet GUIToolkits.
+IntÃ©gration au projet GUIToolkits.
 
 
 Version 3.9.1 : 25/11/22
 ===============
 
-Suppression répertoire module.
+Suppression rÃ©pertoire module.
 
 
 Version 3.9.0 : 09/02/22
@@ -69,7 +69,7 @@ CMakeLists.txt : remplacement de NO_DEFAULT_PATH par NO_CMAKE_SYSTEM_PATH pour Q
 Version 3.8.0 : 02/12/21
 ===============
 
-Suppression de la dépendance à VtkContrib => dépend directement de VTK.
+Suppression de la dÃ©pendance Ã  VtkContrib => dÃ©pend directement de VTK.
 
 
 Version 3.7.6 : 04/11/21
@@ -90,64 +90,64 @@ Version 3.7.4 : 24/08/21
 Suppression des noms de services et laboratoires.
 
 
-Version 3.7.3 : 22/12/20 Révisions svn 382/383
+Version 3.7.3 : 22/12/20 RÃ©visions svn 382/383
 ===============
 
 Retouche mineure CMakeLists.txt
 
 
-Version 3.7.2 : 14/12/20 Révisions svn 380/381
+Version 3.7.2 : 14/12/20 RÃ©visions svn 380/381
 ===============
 
 Retouche mineure CMakeLists.txt racine
 
 
-Version 3.7.1 : 04/11/20 Révisions svn 378/379
+Version 3.7.1 : 04/11/20 RÃ©visions svn 378/379
 ===============
 
-Retouches fichiers CMakeLists.txt relatives à la gestion de Qt (MOC/RCC/ZLIB).
+Retouches fichiers CMakeLists.txt relatives Ã  la gestion de Qt (MOC/RCC/ZLIB).
 
 
-Version 3.7.0 : 26/08/20 Révisions svn 375/376
+Version 3.7.0 : 26/08/20 RÃ©visions svn 375/376
 ===============
 
 Options CMake d'installation -DBUILD_GQLima -DBUILD_GQGMDS -DBUILD_GQVtk
 
 
-Version 3.6.4 : 24/07/20 Révisions svn 373/374
+Version 3.6.4 : 24/07/20 RÃ©visions svn 373/374
 ===============
 
 v 0.8.0 de cmake/workarounds.cmake (LC_ALL=C)
-Utilisation de GMDS à l'export.
+Utilisation de GMDS Ã  l'export.
 
 
-Version 3.6.3 : 15/07/20 Révisions svn 370/371
+Version 3.6.3 : 15/07/20 RÃ©visions svn 370/371
 ===============
 
-- Ajout -DNDEBUG à la compilation en mode non debug.
+- Ajout -DNDEBUG Ã  la compilation en mode non debug.
 - Actualisation des fichiers d'installation par scripting (build.sh, configurations/*).
 
 
-Version 3.6.2 : 25/06/20 Révisions svn 369
+Version 3.6.2 : 25/06/20 RÃ©visions svn 369
 ===============
 
 Petits correctifs pour import/export.
 
 
-Version 3.6.1 : 08/06/20 Révisions svn 364/365
+Version 3.6.1 : 08/06/20 RÃ©visions svn 364/365
 ===============
 
 Petits correctifs pour import/export.
-cmake/common.cmake : ajout à CMAKE_CXX_FLAGS de la variable EXTRA_CXX_FLAGS éventuellement transmise en argument
+cmake/common.cmake : ajout Ã  CMAKE_CXX_FLAGS de la variable EXTRA_CXX_FLAGS Ã©ventuellement transmise en argument
 de cmake.
 
 
-Version 3.6.0 : 04/06/20 Révisions svn 360/361
+Version 3.6.0 : 04/06/20 RÃ©visions svn 360/361
 ===============
 
-Fin réintégration en environnement CEA suite confinement covid-19.
-Procédure d'exportation ouverte des sources : cible export avec script export.sh.
-cmake/workaround.cmake utilise maintenant la commande lsb_release -d à la place du tandem uname/commande locale. A
+Fin rÃ©intÃ©gration en environnement CEA suite confinement covid-19.
+ProcÃ©dure d'exportation ouverte des sources : cible export avec script export.sh.
+cmake/workaround.cmake utilise maintenant la commande lsb_release -d Ã  la place du tandem uname/commande locale. A
 finaliser sur calculateur.
 
 
@@ -160,7 +160,7 @@ Portage VTK 8.2.0
 Version 3.4.0 : 06/04/20
 ===============
 
-Déplacement des en-têtes dans les répertoires QtQualif, GQVtk, GQualif, GQLima, GQGMDS.
+DÃ©placement des en-tÃªtes dans les rÃ©pertoires QtQualif, GQVtk, GQualif, GQLima, GQGMDS.
 TkUtil v 5.4.0
 QtUtil v 5.3.0
 QwtCharts v 4.3.0
@@ -182,139 +182,139 @@ Portage g++ v 7.5.0
 auto_ptr -> unique_ptr
 
 
-Version 3.1.0 : 18/02/20. Révisions svn 350
+Version 3.1.0 : 18/02/20. RÃ©visions svn 350
 ===============
 
-- Retouches compatibilité (SameMinorVersion -> SameMajorVersion)
+- Retouches compatibilitÃ© (SameMinorVersion -> SameMajorVersion)
 
 
-Version 3.0.5 : 10/02/20. Révisions svn 348
+Version 3.0.5 : 10/02/20. RÃ©visions svn 348
 ===============
 
-Retouches gestion de la dépendance à GMDS et GQualif.
+Retouches gestion de la dÃ©pendance Ã  GMDS et GQualif.
 
 
-Version 3.0.4 : 03/02/20. Révisions svn 346
+Version 3.0.4 : 03/02/20. RÃ©visions svn 346
 ===============
 
-Retouches gestion des dépendances.
+Retouches gestion des dÃ©pendances.
 
 
-Version 3.0.3 : 03/02/20. Révisions svn 
+Version 3.0.3 : 03/02/20. RÃ©visions svn 
 ===============
 
-Script de génération de l'archive des sources, script create_tarball.sh.
+Script de gÃ©nÃ©ration de l'archive des sources, script create_tarball.sh.
 Fichier LISEZMOI.txt
 
 
-Version 3.0.2 : 21/01/20. Révisions svn 345
+Version 3.0.2 : 21/01/20. RÃ©visions svn 345
 ===============
 
-Script de génération de l'archive des sources, script create_tarball.sh.
+Script de gÃ©nÃ©ration de l'archive des sources, script create_tarball.sh.
 Fichier LISEZMOI.txt
 
 
-Version 3.0.1 : 06/01/20 (CP) Révisions svn 344
+Version 3.0.1 : 06/01/20 (CP) RÃ©visions svn 344
 ================
 
 Version 5.0.1. Portage (Atos_7__x86_64). Retouche workarounds.cmake pour lib stdc++ GNU.
 
 
-Version 3.0.0 : 18/12/19 (CP) Révisions svn 342/343
+Version 3.0.0 : 18/12/19 (CP) RÃ©visions svn 342/343
 ================
 
-Portage en environnement CMake/Spack g++ 8.3/intel 18.0.3 (arrêt GSCC).
+Portage en environnement CMake/Spack g++ 8.3/intel 18.0.3 (arrÃªt GSCC).
 
 Petites retouches encodage en UTF-8.
 
 
-Version 2.10.0 : publiée le 20/11/19 (CP) Révisions svn 330/331
+Version 2.10.0 : publiÃ©e le 20/11/19 (CP) RÃ©visions svn 330/331
 ================
 
 TK_variants v 4.11.0	:
 Lima v 6.38.0 (format mli2)
 
 
-Version 2.9.0 : publiée le 26/09/19 (CP) Révisions svn 327/328
+Version 2.9.0 : publiÃ©e le 26/09/19 (CP) RÃ©visions svn 327/328
 ===============
 
 TK_variants v 4.10.0	: QtUtil v 4.8.0 ...
-Vtkgl1_711 et Vtkmesa1_711, arrêt Vtkgl711 et Vtkmesa711
+Vtkgl1_711 et Vtkmesa1_711, arrÃªt Vtkgl711 et Vtkmesa711
 
 
-Version 2.8.1 : publiée le 12/09/19 (CP) Révisions svn r324/r325
+Version 2.8.1 : publiÃ©e le 12/09/19 (CP) RÃ©visions svn r324/r325
 ===============
 
 TK_variants v 4.9.1 : QwtCharts v 3.7.1 (correctif affichage des
 	labels des axes lorsqu'ils comportent des exposants).
 
 
-Version 2.8.0 : publiée le 06/09/19 (CP) Révisions svn r320/r321
+Version 2.8.0 : publiÃ©e le 06/09/19 (CP) RÃ©visions svn r320/r321
 ===============
 
 TK_variants v 4.9.0.
 
 TkUtil v 4.6.0, QtUtil v 4.7.0.
 
-Divers petits correctifs passage UTF-8 (caractères accentués).
+Divers petits correctifs passage UTF-8 (caractÃ¨res accentuÃ©s).
 
 
-Version 2.7.0 : publiée le 12/03/19 (CP) Révisions svn r316/r317
+Version 2.7.0 : publiÃ©e le 12/03/19 (CP) RÃ©visions svn r316/r317
 ===============
 
 - TK_variants v 4.7.0 (variant Vtkmesa711).
 
 
-Version 2.6.0 : publiée le 28/11/18 (CP) Révisions svn r313/r315
+Version 2.6.0 : publiÃ©e le 28/11/18 (CP) RÃ©visions svn r313/r315
 ===============
 
 - TK_variants v 4.6.0 (TkUtil v 4.5.0).
 
 
-Version 2.5.0 : publiée le 16/11/18 (CP) Révisions svn r310/r312
+Version 2.5.0 : publiÃ©e le 16/11/18 (CP) RÃ©visions svn r310/r312
 ===============
 
 - TK_variants v 4.5.0 (TkUtil v 4.4.0).
 
 
-Version 2.4.0 : publiée le 14/09/18 (CP) Révisions svn r307/r309
+Version 2.4.0 : publiÃ©e le 14/09/18 (CP) RÃ©visions svn r307/r309
 ===============
 
 - TK_variants v 4.4.0 (TkUtil v 4.3.0).
 
 
-Version 2.3.0 : publiée le 04/09/18 (CP) Révisions svn r304/r306
+Version 2.3.0 : publiÃ©e le 04/09/18 (CP) RÃ©visions svn r304/r306
 ===============
 
 - TK_variants v 4.3.0 (TkUtil v 4.2.0, QtUtil v 4.3.0).
 
 
-Version 2.2.0 : publiée le 22/06/18 (CP) Révisions svn r301/r303
+Version 2.2.0 : publiÃ©e le 22/06/18 (CP) RÃ©visions svn r301/r303
 ===============
 
 - TK_variants v 4.2.0 (TkUtil v 4.1.0, nouveaux services UTF8String).
 
 
-Version 2.1.0 : publiée le 08/06/18 (CP) Révisions svn r298/r300
+Version 2.1.0 : publiÃ©e le 08/06/18 (CP) RÃ©visions svn r298/r300
 ===============
 
 - TK_variants v 4.1.0 (Qt591, VTK 7.1.1 ECM_Variants v 1.22.0 => arret cible
 BullEL_6_AE__x86_64).
-Utilisation du scenario de deploiement QT_VTK_LIBS. Déploiement uniquement des
+Utilisation du scenario de deploiement QT_VTK_LIBS. DÃ©ploiement uniquement des
 versions statiques.
 
 
-Version 2.0.0 : publiée le 22/03/18 (CP)
+Version 2.0.0 : publiÃ©e le 22/03/18 (CP)
 ===============
 
 - TK_variants v 4.0.0
 
 Utilisation de la classe UTF8String et des nouveaux services de TkUtil/QtUtil
-dans l'auto-détection du jeu de caractères utilisé pour encoder les fichiers
+dans l'auto-dÃ©tection du jeu de caractÃ¨res utilisÃ© pour encoder les fichiers
 sources.
 
 
-Version 1.9.0 : publiée le 20/11/17 (CP)
+Version 1.9.0 : publiÃ©e le 20/11/17 (CP)
 ===============
 
 - TK_variants v 3.0.0 (ECM_Variants v 1.21.0 : portage RH 7,
@@ -324,14 +324,14 @@ suppression des QtCore/, QtGui/ et autres pour les includes Qt).
 - Lima v 6.36.0, Qualif v 1.6.4.
 
 
-Version 1.8.0 : publiée le 19/10/17 (CP)
+Version 1.8.0 : publiÃ©e le 19/10/17 (CP)
 ===============
 
 - TK_variants v 2.20.0
 - QtUtil v 3.5.0
 
 
-Version 1.7.0 : publiée le 03/10/17 (CP)
+Version 1.7.0 : publiÃ©e le 03/10/17 (CP)
 ===============
 
 - TK_variants v 2.18.0
@@ -339,60 +339,60 @@ Version 1.7.0 : publiée le 03/10/17 (CP)
 - Qualif internal v 1.6.4
 
 
-Version 1.6.0 : publiée le 21/07/17 (CP)
+Version 1.6.0 : publiÃ©e le 21/07/17 (CP)
 ===============
 
 - TK_variants v 2.15.0 (TkUtil v 3.2.0)
 
 
-Version 1.4.1 : publiée le 16/03/17, (EB)
+Version 1.4.1 : publiÃ©e le 16/03/17, (EB)
 ===============
 
 - Lima v 6.34.0
 
 
-Version 1.4.0 : publiée le 15/03/17, (C. Pignerol)
+Version 1.4.0 : publiÃ©e le 15/03/17, (C. Pignerol)
 ===============
 
 - TK_variants v 2.7.0
 
 
-Version 1.3.2 : publiée le 22/02/17, (N. Le Goff)
+Version 1.3.2 : publiÃ©e le 22/02/17, (N. Le Goff)
 ===============
 
 - TK_variants v 2.3.2
 - gmds_extern 0.7.1
 
 
-Version 1.3.1 : publiée le 04/02/17, (N. Le Goff, C. Pignerol)
+Version 1.3.1 : publiÃ©e le 04/02/17, (N. Le Goff, C. Pignerol)
 ===============
 
 - TK_variants v 2.3.1
 
-- Scénario de déploiement : variants vtk5100 et vtk5100ecm
-- qualifinternal 1.6.1 (correctif fuite mémoire)
-- critère SCALEDJACOBIAN par défaut au lieu de CONDITIONNEMENT 
+- ScÃ©nario de dÃ©ploiement : variants vtk5100 et vtk5100ecm
+- qualifinternal 1.6.1 (correctif fuite mÃ©moire)
+- critÃ¨re SCALEDJACOBIAN par dÃ©faut au lieu de CONDITIONNEMENT 
 
 
-Version 1.3.0 : publiée le 18/01/17, C. Pignerol
+Version 1.3.0 : publiÃ©e le 18/01/17, C. Pignerol
 ===============
 
 - TK_variants v 2.3.0
 
-- Support Qualif v 1.6.0 (critère Validity, hexa uniquement). Valeur nulle si il
-y a au moins un point de la maille dont le jacobien est négatif ou nul.
+- Support Qualif v 1.6.0 (critÃ¨re Validity, hexa uniquement). Valeur nulle si il
+y a au moins un point de la maille dont le jacobien est nÃ©gatif ou nul.
 - QtQualifWidget::updateHistogram : correctif valeur de la classe (+interval/2)
 
 
-Version 1.2.0 : publiée le 12/01/17, C. Pignerol
+Version 1.2.0 : publiÃ©e le 12/01/17, C. Pignerol
 ===============
 
 - TK_variants v 2.2.0
 
-Correctif QtQualifWidget::removeSeries (plantage si destruction à venir).
+Correctif QtQualifWidget::removeSeries (plantage si destruction Ã  venir).
 
 
-Version 1.1.0 : publiée le 09/12/16, C. Pignerol
+Version 1.1.0 : publiÃ©e le 09/12/16, C. Pignerol
 ===============
 
 - TK_variants v 2.0.0
@@ -400,40 +400,40 @@ Version 1.1.0 : publiée le 09/12/16, C. Pignerol
 TkUtil/QtUtil v 3.0.0
 
 
-Version 1.0.0 : publiée le 09/12/16 (N. Le Goff, C. Pignerol)
+Version 1.0.0 : publiÃ©e le 09/12/16 (N. Le Goff, C. Pignerol)
 ===============
 
-Retouches profondes API : multithreading, notion de tâche, optimisations.
+Retouches profondes API : multithreading, notion de tÃ¢che, optimisations.
 
 - TK_variants v 1.80.0 : Lima v 6.33.0, Qualif v 1.5.1, GMD extern 0.7.0.
-Qualif 1.5.1 : accélération pour le calcul de quelques critères sur hexahèdre.
+Qualif 1.5.1 : accÃ©lÃ©ration pour le calcul de quelques critÃ¨res sur hexahÃ¨dre.
 
-Optimisation, utilisation stricte du domaine observé du critère de qualité,
-parallèlisation (multithreading).
+Optimisation, utilisation stricte du domaine observÃ© du critÃ¨re de qualitÃ©,
+parallÃ¨lisation (multithreading).
 
-Notion de tâches (parallèlélisables) => distribuables sur réseau, par exemple
-via un ORB (=> surcouche nécessaire).
+Notion de tÃ¢ches (parallÃ¨lÃ©lisables) => distribuables sur rÃ©seau, par exemple
+via un ORB (=> surcouche nÃ©cessaire).
 
 Module GQualif :
-- Méthode AbstractQualifSerie::isThreadable.
-- Méthode QualifHelper::getVersion
+- MÃ©thode AbstractQualifSerie::isThreadable.
+- MÃ©thode QualifHelper::getVersion
 - Classes QCalQualThread, QSerieRangeThread et QualifSerieData.
 - Classes AbstractQualifTask, QualifRangeTask et QualifAnalysisTask.
 - AbstractQualifSerie::getDataTypes utilise maintenant getCellType 
-au lieu de déduire le type à partir du nombre de noeuds.
+au lieu de dÃ©duire le type Ã  partir du nombre de noeuds.
 
 Module QtQualif :
-- Le calcul des critères de qualité n'est maintenant fait qu'une seule fois dans
+- Le calcul des critÃ¨res de qualitÃ© n'est maintenant fait qu'une seule fois dans
 QtQualifWidget::updateHistogram (optimisation, gain >= 20%).
-- QtQualifWidget : mode "utilisation stricte" du domaine observé du critère
-renseigné par l'utilisateur : en dehors de ce domaine les mailles ne sont pas
-comptabilisées.
+- QtQualifWidget : mode "utilisation stricte" du domaine observÃ© du critÃ¨re
+renseignÃ© par l'utilisateur : en dehors de ce domaine les mailles ne sont pas
+comptabilisÃ©es.
 
 Module GQVtk :
 - Correctifs VtkQualifSerie::isVolumic et getCell.
 
 
-Version 0.18.0 : publiée le 02/09/16 C. Pignerol
+Version 0.18.0 : publiÃ©e le 02/09/16 C. Pignerol
 ================
 
 - TK_variants v 1.73.0
@@ -441,10 +441,10 @@ Version 0.18.0 : publiée le 02/09/16 C. Pignerol
 - Lima 6.31.0, Qualif 1.4.0.
 
 
-Version 0.17.0 : publiée le 23/6/2016 E. Brière de l'Isle
+Version 0.17.0 : publiÃ©e le 23/6/2016 E. BriÃ¨re de l'Isle
 ================
 
-- suppression de la dépendance avec GMDSCEA (seule celle avec gmds_extern est maintenue)
+- suppression de la dÃ©pendance avec GMDSCEA (seule celle avec gmds_extern est maintenue)
 
 
 Version 0.16.0 : 15/03/16
@@ -453,16 +453,16 @@ Version 0.16.0 : 15/03/16
 TK_variants v 1.66.0
 
 Ajouts :
-- src/tests : générateur d'hexaèdres plus ou moins bien faits.
-- doc : quelques exemples de qualité de maillage sur des hexaèdres.
+- src/tests : gÃ©nÃ©rateur d'hexaÃ¨dres plus ou moins bien faits.
+- doc : quelques exemples de qualitÃ© de maillage sur des hexaÃ¨dres.
 
 
-Version 0.15.0 : publiée 10/02/16. N. Le Goff
+Version 0.15.0 : publiÃ©e 10/02/16. N. Le Goff
 ================
 
 - TK_variants v 1.64.0
 - gmds_extern v 0.6.1 : correctif sur le conteneur gmds::IGMesh::volume.
-- GMDSCEA v 1.5.0 : passage à gmds_extern 0.6.1.
+- GMDSCEA v 1.5.0 : passage Ã  gmds_extern 0.6.1.
 
 
 Version 0.14.0 : 09/02/16 C. Pignerol
@@ -472,8 +472,8 @@ Version 0.14.0 : 09/02/16 C. Pignerol
 - QwtCharts v 1.12.0 : petits correctifs concernant les
 histogrammes.
 
-- QtQualifWidget : possibilité de modifier par la programmation le
-type de domaine utilisé.
+- QtQualifWidget : possibilitÃ© de modifier par la programmation le
+type de domaine utilisÃ©.
 
 
 Version 0.13.2 : 03/02/16 N. Le Goff
@@ -492,7 +492,7 @@ Version 0.13.0 : 21/01/16 C. Pignerol
 - TK_variants v 1.58.0
 - QwtCharts v 1.11.0 (meilleure gestion des graduations).
 
-Graduations le plus concise possible par défaut.
+Graduations le plus concise possible par dÃ©faut.
 
 
 Version 0.12.0 : 20/01/16 C. Pignerol
@@ -504,8 +504,8 @@ Version 0.12.0 : 20/01/16 C. Pignerol
 - GMDSCEA v 1.4.0
 
 Correctif dans QtQualifWidget::updateHistogram : champs de texte
-min et max en abscisses activés lorsque le graphique passe automatiquement
-du mode Théorique au mode manuel.
+min et max en abscisses activÃ©s lorsque le graphique passe automatiquement
+du mode ThÃ©orique au mode manuel.
 
 
 Version 0.11.0 : 03/11/15 C. Pignerol
@@ -570,26 +570,26 @@ Version 0.5.8 : 05/03/14
 Version 0.5.7 : 05/03/14
 ===============
 
-- qualifinternal 1.2.1 à 1.2.2.
+- qualifinternal 1.2.1 Ã  1.2.2.
 - TK_Variants 1.37.0
 
 
 Version 0.5.6 : 05/03/14
 ===============
 
-- passage de GMDS 0.2.45 à 0.2.46.
+- passage de GMDS 0.2.45 Ã  0.2.46.
 
 
 Version 0.5.5 : 18/02/14
 ===============
 
-- passage de GMDS 0.2.44 à 0.2.45.
+- passage de GMDS 0.2.44 Ã  0.2.45.
 
 
 Version 0.5.4 : 14/02/14
 ===============
 
-- passage de GMDS 0.2.43 à 0.2.44.
+- passage de GMDS 0.2.43 Ã  0.2.44.
 
 
 Version 0.5.3 : 10/02/14, C. PIGNEROL
@@ -601,17 +601,17 @@ Version 0.5.3 : 10/02/14, C. PIGNEROL
 Version 0.5.2 : 27/01/14, C. PIGNEROL
 ===============
 
-Correctif de bogue dans QtQualifWidget::updateHistogram, problèmes numériques
-lorsque l'on travaille aux bornes du domaine double. Des opérations telles que
-max - min provoquent des dépassements => erreurs dues à des valeurs type inf.
+Correctif de bogue dans QtQualifWidget::updateHistogram, problÃ¨mes numÃ©riques
+lorsque l'on travaille aux bornes du domaine double. Des opÃ©rations telles que
+max - min provoquent des dÃ©passements => erreurs dues Ã  des valeurs type inf.
 
 
 Version 0.5.1 : 22/01/14
 ===============
 
- - passage de qualifinternal 1.2.0 à 1.2.1.
- - passage de Lima 6.23.0 à 6.24.0.
- - passage de GMDS 0.2.40 à 0.2.43.
+ - passage de qualifinternal 1.2.0 Ã  1.2.1.
+ - passage de Lima 6.23.0 Ã  6.24.0.
+ - passage de GMDS 0.2.40 Ã  0.2.43.
  - ajout de use variant QT_LIB dans QCalQual afin d'utiliser la bonne installation de Qt lors de la compilation/moc.
 
 
@@ -627,13 +627,13 @@ Version 0.5.0 : 17/12/13
 Version 0.4.2 : 20/10/13
 ===============
 
-Passage de GMDS 0.2.38 à 0.2.40.
+Passage de GMDS 0.2.38 Ã  0.2.40.
 
 
 Version 0.4.1 : 20/10/13
 ===============
 
-Passage de GMDS 0.2.37 à 0.2.38.
+Passage de GMDS 0.2.37 Ã  0.2.38.
 
 
 Version 0.4.0 : 17/10/13
@@ -644,26 +644,26 @@ Version 0.4.0 : 17/10/13
 - qualifinternal 1.2.0.
 
 - Utilisation de la classe TkUtil::Numeric :
-	- Numeric::isValid, QualifHelper::isInfinite remplacé par
+	- Numeric::isValid, QualifHelper::isInfinite remplacÃ© par
 	  Numeric::isValidAndNotMax.
 	- DBL_MAX -> Numeric::doubleMachMax
-- Validation des coordonnées des noeuds des mailles des séries.
+- Validation des coordonnÃ©es des noeuds des mailles des sÃ©ries.
 
 
 Version 0.3.0 : 20/08/13
 ===============
 
-Déploiement dans produits_tests.
+DÃ©ploiement dans produits_tests.
 
-Passage de GMDS 0.2.34 à 0.2.35.
+Passage de GMDS 0.2.34 Ã  0.2.35.
 
 
 Version 0.3.0 : 20/08/13
 ===============
 
-Déploiement dans produits_tests.
+DÃ©ploiement dans produits_tests.
 
-Ajout méthodes getGMDSFace et getGMDSRegion à la classe GMDSQualifSerie.
+Ajout mÃ©thodes getGMDSFace et getGMDSRegion Ã  la classe GMDSQualifSerie.
 
 Divers correctifs.
 
@@ -671,26 +671,26 @@ Divers correctifs.
 Version 0.2.0 : 25/07/13
 ===============
 
-Déploiement dans produits_tests.
+DÃ©ploiement dans produits_tests.
 
 Ajout adaptateur GMDS, divers retouches.
 - QualifHelper :
 	- Correctif isinf.
-- AbstractQualifSerie (et dérivées) :
-	- Méthodes getCellType, isVolumic.
+- AbstractQualifSerie (et dÃ©rivÃ©es) :
+	- MÃ©thodes getCellType, isVolumic.
 
 
 Version 0.1.0 : 18/07/13
 ===============
 
-Création du projet GQualif (Generic Qualif).
+CrÃ©ation du projet GQualif (Generic Qualif).
 
 Encapsulation du noyau Qualif pour utiliser avec des maillages
 quelconques via des adapteurs. Adapteurs Lima et VTK (unstructured grid).
 IHM Qt reposant sur QwtCharts et sur les adapteurs existants.
 
-Création du projet :
-	- GQualif	: encapsulation générique du projet Qualif,
+CrÃ©ation du projet :
+	- GQualif	: encapsulation gÃ©nÃ©rique du projet Qualif,
 	- QtQualif	: encapsulation Qwt/Qt du projet Qualif,
 	- GQLima	: adaptateur Lima,
 	- GQVtk		: adaptateur Vtk (vtkUnstructuredGrid),
