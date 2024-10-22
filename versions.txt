@@ -1,3 +1,10 @@
+Version 4.4.0 : 22/06/24
+===============
+
+Classe QtQualityDividerWidget permettant de rechercher dans un maillage les mailles correspondant à un certain profil de qualité
+(domaine min-max d'un critère de qualité), l'objectif étant de rechercher les mailles invalides dans une botte de foin !
+
+
 Version 4.3.2 : 14/06/24
 ===============
 

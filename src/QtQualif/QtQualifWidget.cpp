@@ -470,7 +470,7 @@ void QtQualifWidget::updateHistogram ( )
 				        << "\n" << exc.getFullMessage ( );
 				throw (Exception (message));
 			}
-		}	// if (true == coordinatesEvaluation ( ))
+		}	// for (i = 0; i < seriesNum; i++)
 	}	// if (true == coordinatesEvaluation ( ))
 
 	// Récupération des paramètres de présentation, application à l'histogramme,
