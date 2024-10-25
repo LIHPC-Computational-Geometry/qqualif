@@ -103,7 +103,7 @@ QtQualityDividerWidget::QtQualityDividerWidget (QWidget* parent, const string& a
 	  _minTextField (0), _maxTextField (0),
 	  _criterionComboBox (0), _dataTypesList (0), _seriesExtractionsTableWidget (),
 	  _coordinatesCheckBox (0), _releaseDataCheckBox (0),
-	  _buttonsLayout (0), _applyButton (0),
+	  _buttonsLayout (0), _optionsLayout (0), _applyButton (0),
 	  _criterion ((Qualif::Critere)-1)
 {
 	QVBoxLayout*	mainLayout	= new QVBoxLayout (this);
@@ -180,20 +180,20 @@ QtQualityDividerWidget::QtQualityDividerWidget (QWidget* parent, const string& a
 	QAbstractItemModel*	dataTypeModel	= _dataTypesList->model ( );
 	dataTypeModel->setHeaderData (0, Qt::Horizontal, QVariant(QSTR ("Types de données")));
 	_dataTypesList->setToolTip (QSTR ("Liste des types de mailles à prendre en compte lors du traitement."));
-	QVBoxLayout*	vlayout	= new QVBoxLayout ( );
-	hboxLayout->addLayout (vlayout);
+	_optionsLayout	= new QVBoxLayout ( );
+	hboxLayout->addLayout (_optionsLayout);
 	_coordinatesCheckBox	= new QCheckBox (QSTR ("Validité des coordonnées"), this);
-	vlayout->addWidget (_coordinatesCheckBox);	
+	_optionsLayout->addWidget (_coordinatesCheckBox);	
 	_coordinatesCheckBox->setFixedSize (_coordinatesCheckBox->sizeHint ( ));
 	_coordinatesCheckBox->setChecked (true);
 	_coordinatesCheckBox->setToolTip (QSTR ("Activé, effectue une analyse préalable des coordonnées des noeuds des mailles."));
 	_releaseDataCheckBox	= new QCheckBox (QSTR ("Libérer la mémoire après chaque critère"), this);
-	vlayout->addWidget (_releaseDataCheckBox);	
+	_optionsLayout->addWidget (_releaseDataCheckBox);	
 	_releaseDataCheckBox->setFixedSize (_releaseDataCheckBox->sizeHint ( ));
 	_releaseDataCheckBox->setChecked (true);
 	_releaseDataCheckBox->setToolTip (QSTR ("Activé, libère la mémoire utilisée en cache à chaque changement de critère."));
 	hboxLayout->addStretch (10.);
-	vlayout->addStretch (10.);
+	_optionsLayout->addStretch (10.);
 
 	// 4-ième ligne : boutons :
 	_buttonsLayout	= new QHBoxLayout ( );
@@ -219,7 +219,7 @@ QtQualityDividerWidget::QtQualityDividerWidget (const QtQualityDividerWidget&)
 	  _minTextField (0), _maxTextField (0),
 	  _criterionComboBox (0), _dataTypesList (0), _seriesExtractionsTableWidget (0),
 	  _coordinatesCheckBox (0), _releaseDataCheckBox (0),
-	  _buttonsLayout (0), _applyButton (0),
+	  _buttonsLayout (0), _optionsLayout (0), _applyButton (0),
 	  _criterion ((Qualif::Critere)-1)
 {
 	assert (0 && "QtQualityDividerWidget copy constructor is not allowed.");
@@ -334,7 +334,6 @@ void QtQualityDividerWidget::compute ( )
 	{
 		AbstractQualifSerie*	serie	= _series [j];
 		CHECK_NULL_PTR_ERROR (serie)
-//cout << "SERIE " << (unsigned long)j << " IS CALLED " << serie->getName ( ) << " AND HAS " << values [0][j] << "/" << serie->getCellCount ( ) << " BAD CELLS" << endl;
 		QTableWidgetItem*	item	= new QTableWidgetItem (serie->getName ( ).c_str ( ));
 		item->setCheckState (Qt::Unchecked);
 		_seriesExtractionsTableWidget->setItem (j, 0, item);
@@ -527,6 +526,13 @@ QHBoxLayout& QtQualityDividerWidget::getButtonsLayout ( )
 	assert (0 != _buttonsLayout && "QtQualityDividerWidget::getButtonsLayout : null layout.");
 	return *_buttonsLayout;
 }	// QtQualityDividerWidget::getButtonsLayout
+
+
+QVBoxLayout& QtQualityDividerWidget::getOptionsLayout ( )
+{
+	assert (0 != _optionsLayout && "QtQualityDividerWidget::getOptionsLayout : null layout.");
+	return *_optionsLayout;
+}	// QtQualityDividerWidget::getOptionsLayout
 
 
 void QtQualityDividerWidget::displayExtraction (size_t i, bool display)

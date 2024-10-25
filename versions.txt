@@ -1,3 +1,9 @@
+Version 4.5.0 : 25/06/24
+===============
+
+Méthode QtQualityDividerWidget::getOptionsLayout
+
+
 Version 4.4.0 : 22/06/24
 ===============
 

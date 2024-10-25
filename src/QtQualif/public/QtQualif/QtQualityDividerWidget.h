@@ -146,6 +146,20 @@ class QtQualityDividerWidget : public QWidget
 	 * @return		Une référence sur le gestionnaire de mise en forme du bandeau horizontal de boutons.
 	 */
 	virtual QHBoxLayout& getButtonsLayout ( );
+	
+	/**
+	 * Personnalisation de l'IHM : ajouter un case à cocher "option". Le parent du bouton doit être a priori cette instance, il convient ensuite
+	 * de l'ajouter au gestionnaire de mise en forme du bandeau vertical de cases à cocher. Ex :<BR>
+	 * <CODE>
+	 * QtQualityDividerWidget*	qualifWidget = new QtQualityDividerWidget (...);
+	 * QCheckBox*		wireCheckBox	= new QCheckBox ("Mode filaire", qualifWidget);
+	 * qualifWidget->getOptionsLayout ( ).addWidget (wireCheckBox);
+	 * connect (wireCheckBox, ...);
+	 * </CODE>
+	 * @return		Une référence sur le gestionnaire de mise en forme du bandeau vertical de cases à cocher.
+	 */
+	virtual QVBoxLayout& getOptionsLayout ( );
+
 
 
 	protected :
@@ -232,6 +246,7 @@ class QtQualityDividerWidget : public QWidget
 	QCheckBox*								_releaseDataCheckBox;
 	// Les boutons :
 	QHBoxLayout*							_buttonsLayout;
+	QVBoxLayout*							_optionsLayout;
 	QPushButton*							_applyButton;
 
 	// Gestion des données en cache :
