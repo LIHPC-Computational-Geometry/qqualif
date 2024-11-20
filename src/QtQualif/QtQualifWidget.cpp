@@ -842,7 +842,7 @@ QualifRangeTask* QtQualifWidget::createRangeTask (
 	size_t types, Critere criterion, const vector<AbstractQualifSerie*>& series)
 {
 	return new QualifRangeTask (types, criterion, series);
-}	// QtQualifWidget::createAnalysisTask
+}	// QtQualifWidget::createRangeTask
 
 
 QualifAnalysisTask* QtQualifWidget::createAnalysisTask (

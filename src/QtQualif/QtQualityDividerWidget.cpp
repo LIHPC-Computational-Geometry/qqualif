@@ -10,6 +10,7 @@
 #include <TkUtil/Exception.h>
 #include <TkUtil/InternalError.h>
 #include <TkUtil/MemoryError.h>
+#include <TkUtil/NumericConversions.h>
 #include <TkUtil/NumericServices.h>
 #include <TkUtil/ThreadManager.h>
 #include <TkUtil/UTF8String.h>
@@ -100,7 +101,7 @@ class QtQualifDataTypeItem : public QListWidgetItem
 QtQualityDividerWidget::QtQualityDividerWidget (QWidget* parent, const string& appTitle)
 	: QWidget (parent),
 	  _appTitle (appTitle), _series ( ),
-	  _minTextField (0), _maxTextField (0),
+	  _minTextField (0), _maxTextField (0), _domainLabel (0),
 	  _criterionComboBox (0), _dataTypesList (0), _seriesExtractionsTableWidget (),
 	  _coordinatesCheckBox (0), _releaseDataCheckBox (0),
 	  _buttonsLayout (0), _optionsLayout (0), _applyButton (0),
@@ -134,7 +135,10 @@ QtQualityDividerWidget::QtQualityDividerWidget (QWidget* parent, const string& a
 	_maxTextField->setFixedSize (_maxTextField->sizeHint ( ));
 	hboxLayout->setStretchFactor (_maxTextField, 1);
 	_maxTextField->setToolTip (QSTR ("Champ de saisie de la valeur maximale à représenter."));
-	hboxLayout->addStretch (10.);
+	_domainLabel	= new QLabel ("Domaine : [,]", this);
+	_domainLabel->setAlignment (Qt::AlignLeft | Qt::AlignVCenter);
+	hboxLayout->addWidget (_domainLabel);
+//	hboxLayout->addStretch (10.);
 	
 	// 2-ième ligne : critère :
 	hboxLayout	= new QHBoxLayout ( );
@@ -216,7 +220,7 @@ QtQualityDividerWidget::QtQualityDividerWidget (QWidget* parent, const string& a
 QtQualityDividerWidget::QtQualityDividerWidget (const QtQualityDividerWidget&)
 	: QWidget (0),
 	  _appTitle ("Invalid application"), _series ( ),
-	  _minTextField (0), _maxTextField (0),
+	  _minTextField (0), _maxTextField (0), _domainLabel (0),
 	  _criterionComboBox (0), _dataTypesList (0), _seriesExtractionsTableWidget (0),
 	  _coordinatesCheckBox (0), _releaseDataCheckBox (0),
 	  _buttonsLayout (0), _optionsLayout (0), _applyButton (0),
@@ -576,6 +580,12 @@ void QtQualityDividerWidget::displayErrorMessage (const UTF8String& msg)
 }	// QtQualityDividerWidget::displayErrorMessage
 
 
+QualifRangeTask* QtQualityDividerWidget::createRangeTask (size_t types, Critere criterion, const vector<AbstractQualifSerie*>& series)
+{
+	return new QualifRangeTask (types, criterion, series);
+}	// QtQualityDividerWidget::createRangeTask
+
+
 QualifAnalysisTask* QtQualityDividerWidget::createAnalysisTask (size_t types, Critere criterion, double min, double max, const vector<AbstractQualifSerie*>& series)
 {
 	return new QualifAnalysisTask (types, criterion, 1, min, max, true, series);
@@ -586,6 +596,7 @@ void QtQualityDividerWidget::updateDomainCallback ( )
 {
 	assert (0 != _minTextField);
 	assert (0 != _maxTextField);
+	assert (0 != _domainLabel);
 	try
 	{
 		QtAutoWaitingCursor cursor (true);
@@ -593,6 +604,9 @@ void QtQualityDividerWidget::updateDomainCallback ( )
 		const double	userMin	= getDomainMinValue ( ), userMax	= getDomainMaxValue ( );
 		double	min	= 0., max = 1.;
 		QualifHelper::getDomain (getCriterion ( ), getQualifiedTypes ( ), min, max);
+		UTF8String	domain ("Domaine : ", charset);
+		domain << "[" << NumericConversions::shortestRepresentation (min, 2) << ", " << NumericConversions::shortestRepresentation (max, 2) << "]";
+		_domainLabel->setText (domain.utf8 ( ).c_str ( ));
 		if ((userMin < min) || (userMin >= max))
 			_minTextField->setText (QString::number (min));
 		if ((userMax > max) || (userMax <= min))
@@ -608,9 +622,11 @@ void QtQualityDividerWidget::updateSelectableTypesCallback ( )
 {
 	assert ((0 != _criterionComboBox) && "QtQualityDividerWidget::updateSelectableTypesCallback : null criteria combo box.");
 	assert ((0 != _dataTypesList) && "QtQualityDividerWidget::updateSelectableTypesCallback : null types list.");
+	assert (0 != _domainLabel);
 
 	BEGIN_TRY_CATCH_BLOCK
 
+	_domainLabel->setText ("Domaine : [, ]");
 	Critere		criterion	= getCriterion ( );
 	const int	itemCount	= _dataTypesList->count ( );
 	for (int i = 0; i < itemCount; i++)
