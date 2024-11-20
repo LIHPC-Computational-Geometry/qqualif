@@ -11,6 +11,7 @@
 #include <QListWidget>
 #include <QComboBox>
 #include <QCheckBox>
+#include <QLabel> 
 #include <QPushButton>
 #include <QTableWidget>
 
@@ -189,6 +190,15 @@ class QtQualityDividerWidget : public QWidget
 	virtual void displayErrorMessage (const IN_UTIL UTF8String& msg);
 
 	/**
+	 * Créé une tâche <I>Qualif</I> qui recueille les extrema pris par les mailles d'analyse de mailles de séries soumises à un critère de qualité.
+	 * Cette tâche est à détruire par la fonction appelante.
+	 * @param		Les types de mailles au sens <I>QualifHelper</I>, définis par un ou exclusif sur les types élémentaires (TRIANGLE, ...).
+	 * @param		Le critère <I>Qualif</I> appliqué à la tâche.
+	 * @param		Les séries soumises à l'analyse <I>Qualif</I>.
+	 */
+	virtual GQualif::QualifRangeTask* createRangeTask (size_t types, Qualif::Critere criterion, const std::vector<AbstractQualifSerie*>& series);
+				
+	/**
 	 * Créé une tâche <I>Qualif</I> d'analyse de mailles. Cette tâche est à détruire par la fonction appelante.
 	 * @param		Les types de mailles au sens <I>QualifHelper</I>, définis par un ou exclusif sur les types élémentaires (TRIANGLE, ...).
 	 * @param		Le critère <I>Qualif</I> appliqué à la tâche.
@@ -240,6 +250,7 @@ class QtQualityDividerWidget : public QWidget
 
 	QtTextField*							_minTextField;
 	QtTextField*							_maxTextField;
+	QLabel*									_domainLabel;
 	QComboBox*								_criterionComboBox;
 	QListWidget*							_dataTypesList;
 	QCheckBox*								_coordinatesCheckBox;

@@ -1,10 +1,16 @@
-Version 4.5.0 : 25/06/24
+Version 4.6.0 : 20/11/24
+===============
+
+Diverses petites évolutions de QtQualityDividerWidget.
+
+
+Version 4.5.0 : 25/10/24
 ===============
 
 Méthode QtQualityDividerWidget::getOptionsLayout
 
 
-Version 4.4.0 : 22/06/24
+Version 4.4.0 : 22/10/24
 ===============
 
 Classe QtQualityDividerWidget permettant de rechercher dans un maillage les mailles correspondant à un certain profil de qualité
