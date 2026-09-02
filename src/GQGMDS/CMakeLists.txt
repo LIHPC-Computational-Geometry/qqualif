@@ -1,12 +1,13 @@
 set (CURRENT_PACKAGE_NAME "GQGMDS")
 set (CURRENT_PACKAGE_MACRO_NAME "GQGMDS")
 
-find_package (GUIToolkitsVariables)
+find_package (GUIToolkitsVariables 1.7 REQUIRED)
 find_package (Lima REQUIRED)
 
 include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/utilities.cmake) 
 
 find_package (gmds REQUIRED)
 
@@ -29,6 +30,7 @@ target_link_libraries (GQGMDS PUBLIC GMDSIg GMDSIo GQualif)
 # Etre capable une fois installée de retrouver TkUtil, Qualif*, ... :
 # (Rem : en son absence on a Set runtime path of "/tmp/pignerol/install/lib/libGQGMDS.so.5.0.0" to "") ...
 set_target_properties (GQGMDS PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
+separate_debug_infos (GQGMDS ${CMAKE_INSTALL_PREFIX}/src)
 # Inefficace ici : CMAKE_AUTOMOC => dans le CMakeLists.txt racine
 #set (CMAKE_AUTOMOC ON)
 

@@ -1,12 +1,13 @@
 set (CURRENT_PACKAGE_NAME "QtQualif")
 set (CURRENT_PACKAGE_MACRO_NAME "QT_QUALIF")
 
-find_package (GUIToolkitsVariables)
+find_package (GUIToolkitsVariables 1.7 REQUIRED)
 
 include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/common_qt.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/utilities.cmake) 
 
 find_package(Qt${QT_MAJOR}Core NO_CMAKE_SYSTEM_PATH)	# In order to enable moc ...
 find_package (QwtCharts 5 REQUIRED)
@@ -36,6 +37,7 @@ target_link_libraries (QtQualif PUBLIC QwtCharts::QwtCharts GQualif)
 # Etre capable une fois installée de retrouver vtk*, ... :
 # (Rem : en son absence on a Set runtime path of "/tmp/pignerol/install/lib/libQtQualif.so.5.0.0" to "") ...
 set_target_properties (QtQualif PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
+separate_debug_infos (QtQualif ${CMAKE_INSTALL_PREFIX}/src)
 set_property (TARGET QtQualif PROPERTY AUTOMOC ON)
 
 # INSTALLATION :

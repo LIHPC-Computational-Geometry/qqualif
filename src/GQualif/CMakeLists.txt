@@ -1,11 +1,12 @@
 set (CURRENT_PACKAGE_NAME "GQualif")
 set (CURRENT_PACKAGE_MACRO_NAME "GQUALIF")
 
-find_package (GUIToolkitsVariables)
+find_package (GUIToolkitsVariables 1.7 REQUIRED)
 
 include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
+include (${GUIToolkitsVariables_CMAKE_DIR}/utilities.cmake) 
 
 find_package (TkUtil 6 REQUIRED)
 if (BUILD_GQLima)
@@ -32,6 +33,7 @@ target_link_libraries (GQualif PUBLIC TkUtil::TkUtil qualifinternal::qualifinter
 # Etre capable une fois installée de retrouver TkUtil, Qualif*, ... :
 # (Rem : en son absence on a Set runtime path of "/tmp/pignerol/install/lib/libGQualif.so.5.0.0" to "") ...
 set_target_properties (GQualif PROPERTIES INSTALL_RPATH_USE_LINK_PATH 1)
+separate_debug_infos (GQualif ${CMAKE_INSTALL_PREFIX}/src)
 # Inefficace ici : CMAKE_AUTOMOC => dans le CMakeLists.txt racine
 #set (CMAKE_AUTOMOC ON)
 
