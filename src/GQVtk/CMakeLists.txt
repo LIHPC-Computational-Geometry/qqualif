@@ -38,8 +38,8 @@ file (GLOB CPP_SOURCES *.cpp)
 # par exemple lorsqu'ils doivent être pré-processés (moc, ...).
 add_library (GQVtk ${CPP_SOURCES} ${HEADERS})
 set (ALL_TARGETS GQVtk)
-set_property (TARGET GQVtk PROPERTY VERSION ${GQVTK_VERSION})
-set_property (TARGET GQVtk PROPERTY SOVERSION ${GQVTK_MAJOR_VERSION})
+set_property (TARGET GQVtk PROPERTY VERSION ${QQUALIF_VERSION})
+set_property (TARGET GQVtk PROPERTY SOVERSION ${QQUALIF_MAJOR_VERSION})
 set (GQVTK_PRIVATE_FLAGS -DGQVTK_VERSION="${GQVTK_VERSION}")
 
 target_include_directories (GQVtk PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)

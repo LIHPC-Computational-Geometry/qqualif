@@ -17,8 +17,8 @@ file (GLOB CPP_SOURCES *.cpp)
 # par exemple lorsqu'ils doivent être pré-processés (moc, ...).
 add_library (GQLima ${CPP_SOURCES} ${HEADERS})
 set (ALL_TARGETS GQLima)
-set_property (TARGET GQLima PROPERTY VERSION ${GQLIMA_VERSION})
-set_property (TARGET GQLima PROPERTY SOVERSION ${GQLIMA_MAJOR_VERSION})
+set_property (TARGET GQLima PROPERTY VERSION ${QQUALIF_VERSION})
+set_property (TARGET GQLima PROPERTY SOVERSION ${QQUALIF_MAJOR_VERSION})
 set (GQLIMA_PRIVATE_FLAGS -DGQLIMA_VERSION="${GQLIMA_VERSION}")
 
 target_include_directories (GQLima PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/public>$<INSTALL_INTERFACE:${CMAKE_INSTALL_PREFIX}/include>)
