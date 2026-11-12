@@ -9,7 +9,7 @@ include (${GUIToolkitsVariables_CMAKE_DIR}/common_qt.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/utilities.cmake) 
 
-find_package(Qt${QT_MAJOR}Core NO_CMAKE_SYSTEM_PATH)	# In order to enable moc ...
+find_package(Qt${QT_MAJOR}Core NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)	# In order to enable moc ...
 find_package (QwtCharts 5 REQUIRED)
 
 file (GLOB HEADERS public/${CURRENT_PACKAGE_NAME}/*.h)

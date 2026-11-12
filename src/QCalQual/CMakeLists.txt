@@ -6,7 +6,7 @@ include (${CMAKE_SOURCE_DIR}/cmake/version.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/common.cmake)
 include (${GUIToolkitsVariables_CMAKE_DIR}/workarounds.cmake)
 
-find_package(Qt5Core NO_CMAKE_SYSTEM_PATH)	# In order to enable moc ...
+find_package(Qt5Core NO_CMAKE_SYSTEM_PATH NO_SYSTEM_ENVIRONMENT_PATH NO_CMAKE_SYSTEM_PACKAGE_REGISTRY)	# In order to enable moc ...
 
 add_executable (QtCalQual QtCalQualMainWindow.cpp QtCalQualMainWindow.h QQualCal.cpp QCalQual.qrc)
 set_property (TARGET QtCalQual PROPERTY AUTOMOC ON)
